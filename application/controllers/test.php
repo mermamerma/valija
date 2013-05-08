@@ -12,6 +12,7 @@ class Test extends Controller {
     function __construct() {
 		parent::Controller();
 		$this->load->model('valija_model');
+                $this->load->model('usuario_model');
 		#is_logged_in();
 	}
 	
@@ -68,5 +69,13 @@ class Test extends Controller {
 		$data ['main_content'] 		= 'test/probar_jqgrid';
         $this->load->view('sistema/template',$data);
 	}
-}
+
+    function exportar () {      
+        $this->load->model('correspondencia_model');
+        $rs = $this->usuario_model->listar_usaurios_obj();
+        export_to_xls($rs) ;
+        
+    }
+    
+    }
 

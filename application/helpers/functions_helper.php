@@ -215,3 +215,51 @@ EOF;
 echo  $str ;
 }
 
+/**
+* 
+* @Desc     Para Exportar una consulta a base de datos mediante un XLS
+* @link     https://github.com/EllisLab/CodeIgniter/wiki/Excel-Plugin 
+* @author   Autor(es): Jesus Rodriguez
+* @access   public
+* @param    Array       $query          Resultado de la consulta a BD
+* @param    String      $file           Nombre del archivo
+* 
+*/
+function export_to_xls($query, $file = 'export'){
+     $headers = ''; // just creating the var for field headers to append to below
+     $data = ''; // just creating the var for field data to append to below
+     
+     $fields = $query->field_data();
+     #var_dump($fields);
+     if ($query->num_rows() == 0) {
+          echo '<p>La tabla al parecer no contiene datos.</p>';
+     } 
+     else {
+          foreach ($fields as $field) {
+             $headers .= $field->name . "\t";
+          }
+     
+          foreach ($query->result() as $row) {
+               $line = '';
+               foreach($row as $value) {                                            
+                    if ((!isset($value)) OR ($value == "")) {
+                         $value = "\t";
+                    } else {
+                         $value = str_replace('"', '""', $value);
+                         $value = '"' . $value . '"' . "\t";
+                    }
+                    $line .= $value;
+               }
+               $data .= trim($line)."\n";
+          }
+          
+          $data = str_replace("\r","",$data);
+                         
+          header("Content-type: application/x-msdownload");
+          header("Content-Disposition: attachment; filename=$file.xls");
+          echo "$headers\n$data";  
+     }
+    
+
+}
+

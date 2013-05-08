@@ -28,9 +28,9 @@ class Usuario_model extends Model {
 	}
 
 	function validar_en_ldap($usuario, $password) {
-		$res = $this->adldap->authenticate($usuario,$password);
-		return $res ;
-		#return true;		
+		#$res = $this->adldap->authenticate($usuario,$password);
+		#return $res ;
+		return true;		
 	}
     
 	function get_usuario($usuario) {
@@ -149,6 +149,31 @@ class Usuario_model extends Model {
 		}
 		return false;
 	}
+
+        function listar_usaurios_obj() {
+		$query = $this->db->query("
+		SELECT
+		usuarios.id,
+		usuarios.usuario,
+		usuarios.nombres,
+		usuarios.apellidos,
+		uc.usuario as 'creador',
+		coordinaciones.nombre as 'coordinacion',
+		accesos.nombre as 'acceso',
+                usuarios.fecha_creacion,
+                usuarios.fecha_actualizacion,
+		IF(usuarios.id_estatus = 1,'Activo','Inactivo') as 'estatus',
+		IF(usuarios.id_estatus = 1,'good_bit.png','bad_bit.png') as 'img'
+		FROM
+		usuarios
+		INNER Join coordinaciones ON usuarios.id_coordinacion = coordinaciones.id
+		LEFT Join accesos 				ON usuarios.id_acceso = accesos.id
+		INNER Join usuarios uc 		ON uc.id = usuarios.id_creador
+		ORDER BY usuarios.usuario ASC
+		");
+		return $query ;		
+	}
+        
 }
 
 

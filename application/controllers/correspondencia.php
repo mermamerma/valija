@@ -23,7 +23,7 @@ class Correspondencia extends Controller {
         $myvariable = 'Hola Mundo';
         $miArray = array("indice" => "valor", "otra cosa" => "otro valor");
     	$id = $this->uri->segment(3);
-        $id = 20;
+        #$id = 20;
         $this->firephp->log($id, '$id');
         $script = '';    	
     	$data ['main_content'] = 'correspondencia/frm_correspondencia';    

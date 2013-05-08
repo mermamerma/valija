@@ -39,7 +39,8 @@
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','session','jquery','adldap','utils','firephp');
+#$autoload['libraries'] = array('database','session','jquery','adldap','utils','firephp');
+$autoload['libraries'] = array('database','session','jquery','utils','firephp');
 #$autoload['libraries'] = array('database','session','jquery','utils');
 
 

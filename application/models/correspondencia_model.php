@@ -123,7 +123,7 @@ class Correspondencia_model extends Model {
 				IF(c.anexo   = 'S','Si','No') as anexo, 
 				IF(c.observaciones IS NULL,'&nbsp;',c.observaciones) as observaciones,				
 				IF(c.entrada = 'T','Taquilla','Valija') as entrada,
-				date_format(c.fecha_creacion, '%d-%m-%Y %H:%i %p') AS fecha_creacion,
+				date_format$this->load->model('correspondencia_model');(c.fecha_creacion, '%d-%m-%Y %H:%i %p') AS fecha_creacion,
 				usuarios.usuario ", FALSE);  
   	$this->db->join('usuarios', 'c.id_usuario = usuarios.id', 'inner');
   	$this->db->join('misiones', 'c.id_mision = misiones.id_mision', 'inner');  	
@@ -251,5 +251,5 @@ class Correspondencia_model extends Model {
 		$update = $this->db->update('correspondencias', array('estatus' => 0));
 		return $this->db->affected_rows();
 	}
-	
-}
+	       
+        }
