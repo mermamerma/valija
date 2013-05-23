@@ -225,8 +225,7 @@
 	 * Enable the header, set the font, default text, and margin
 	 ***********************************************************/
 	
-	$tcpdf['footer_on'] = TRUE;<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+	$tcpdf['footer_on'] = TRUE;
 	$tcpdf['footer_font'] = $tcpdf['page_font'];
 	$tcpdf['footer_font_size'] = 8;
 	$tcpdf['footer_margin'] = 10;
