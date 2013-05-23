@@ -156,8 +156,7 @@ class Correspondencia extends Controller {
 		$this->load->view('sistema/template',$data); 
     }
 	
-    function frm_editar () {    	    	
-        
+    function frm_editar () {    	    	        
 	if ($data['correspondencia'] = $this->correspondencia_model->get_registro()) {    			 
         $id = $this->uri->segment(3);
 
