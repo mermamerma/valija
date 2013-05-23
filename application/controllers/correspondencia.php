@@ -116,17 +116,17 @@ class Correspondencia extends Controller {
     	$this->load->library('pagination');
     	$this->load->library('table');
     	$config['base_url'] 		= base_url().'/correspondencia/listar/';
-   		$total_rows 				= $this->utils->count_all_condition('correspondencias', 'estatus = 1' );
-   		
-		$this->config->set_item('enable_query_strings',FALSE);
+        $total_rows 				= $this->utils->count_all_condition('correspondencias', 'estatus = 1' );
 
-   		$config['total_rows'] 		= $total_rows;
-    	$config['per_page'] 		= 10;
-		$data['results']			= array();
-		$data['total_rows']			= $total_rows;		
-		$data['inicio']				= $config['per_page'];	
-		$data['fin']				= $this->uri->segment(3);
-    	$this->pagination->initialize($config);    	
+        $this->config->set_item('enable_query_strings',FALSE);
+
+        $config['total_rows'] 		= $total_rows;
+        $config['per_page'] 		= 10;
+        $data['results']			= array();
+        $data['total_rows']			= $total_rows;		
+        $data['inicio']				= $config['per_page'];	
+        $data['fin']				= $this->uri->segment(3);
+        $this->pagination->initialize($config);    	
 	
 		
 		$correspondencias = $this->correspondencia_model->get_correspondencias($config['per_page'],$this->uri->segment(3));    			
@@ -156,30 +156,30 @@ class Correspondencia extends Controller {
 		$this->load->view('sistema/template',$data); 
     }
 	
-    function frm_editar () {
-    	    	
-    	if ($data['correspondencia'] = $this->correspondencia_model->get_registro()) {    			 
-			$id = $this->uri->segment(3);
-			
-			#$data ['main_content'] 		= 'correspondencia/frm_editar';
-			
-			$rules[] = ('remitente : { required:true }');
-	    	$rules[] = ('numero : { required:true }');
-			$rules[] = ('fecha_correspondencia : { required:true, dateDE: true}');		
-			$rules[] = ('fecha_ingreso : { required:true, dateDE: true}');
-			$rules[] = ('asunto : { required:true }');    	
-			$rules[] = ('asignacion : { required:true }');
-			$rules[] = ('fecha_ingreso : { required:true }');
-	    	
-	    	$data['rules'] = $rules;    	 
-			$data ['main_content'] 		= 'correspondencia/frm_editar';
-			
-			$this->load->view('sistema/template',$data); 
-			register_log('Correspondencia',"Acceso al formulario para editar la correspondencia con el ID => $id");
-		}
-		else 
-			show_404();
-    }
+    function frm_editar () {    	    	
+        
+	if ($data['correspondencia'] = $this->correspondencia_model->get_registro()) {    			 
+        $id = $this->uri->segment(3);
+
+        #$data ['main_content'] 		= 'correspondencia/frm_editar';
+
+        $rules[] = ('remitente : { required:true }');
+        $rules[] = ('numero : { required:true }');
+        $rules[] = ('fecha_correspondencia : { required:true, dateDE: true}');		
+        $rules[] = ('fecha_ingreso : { required:true, dateDE: true}');
+        $rules[] = ('asunto : { required:true }');    	
+        $rules[] = ('asignacion : { required:true }');
+        $rules[] = ('fecha_ingreso : { required:true }');
+
+        $data['rules'] = $rules;    	 
+        $data ['main_content'] 		= 'correspondencia/frm_editar';
+
+        $this->load->view('sistema/template',$data); 
+        register_log('Correspondencia',"Acceso al formulario para editar la correspondencia con el ID => $id");
+        }
+        else 
+        show_404();
+}
 	
     function eliminar() {
     	$id = $this->uri->segment(3);

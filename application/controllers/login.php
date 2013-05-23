@@ -9,12 +9,12 @@
 
 class Login extends Controller {
 
-	function __construct() 
+    function __construct() 
 	{
 		parent::Controller();
 	}
     
-	function index()
+    function index()
 	{
 		$esta_logueado = $this->session->userdata('esta_logueado'); 
     	
@@ -30,7 +30,7 @@ class Login extends Controller {
     	}
     }
     
-	function username_check($str)	{
+    function username_check($str)	{
 		$this->load->model('Usuario_model');
 		$usuario  = $this->input->post('usuario');
 		$password = $this->input->post('password');

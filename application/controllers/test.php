@@ -65,8 +65,8 @@ class Test extends Controller {
 	}
 
     function probar_jqgrid(){
-		$data['tabla'] = 'al Pelo';
-		$data ['main_content'] 		= 'test/probar_jqgrid';
+	$data['tabla'] = 'al Pelo';
+	$data ['main_content'] 		= 'test/probar_jqgrid';
         $this->load->view('sistema/template',$data);
 	}
 
@@ -77,5 +77,5 @@ class Test extends Controller {
         
     }
     
-    }
+   }
 

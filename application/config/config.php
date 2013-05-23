@@ -15,7 +15,7 @@
 $config['fire_php_enabled'] = true;
 
 #$config['base_url']	= "http://localhost/valija";
-$config['base_url']	= "http://172.27.38.114/valija";
+$config['base_url']	= "http://172.27.38.66/valija";
 #$config['base_url']	= "http://172.31.1.167/valija";
 
 
