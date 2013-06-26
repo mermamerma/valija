@@ -28,14 +28,15 @@ function register_log($accion = '', $desc ='', $query = 0)	{
 * @Desc Verifica si el usuario esta logueado
 *
 * @author  Author(s): Jesus Rodriguez
-* @return   boll 
+* @return   bool 
 */
 function is_logged_in()  {
 	$CI =& get_instance();		
    	$esta_logueado = $CI->session->userdata('esta_logueado'); 
    	
    	if( ! isset($esta_logueado) || $esta_logueado != true) {
-   		redirect(base_url().'login/sesion_requerida');
+   		redirect(base_url().'login/sesion_requerida','refresh');
+		exit();
    		#echo 'Tu no tienes permiso para acceder a esta página; <a href="'.base_url().'login">Iniciar Sesión</a>';    		
    		#die();
    	}		

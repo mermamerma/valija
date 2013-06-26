@@ -6,7 +6,7 @@
 	<div class="form_description">
 	<h2><?=$momento;?></h2> 
 	<p>Formulario</p>
-	<?=form_hidden('id'); ?>	  
+	<?=form_hidden('id') ?>	  
 	</div>
 	<br />
 	<fieldset>

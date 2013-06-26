@@ -27,8 +27,8 @@ function date_iso_to_latin($date,$input = '-', $output = '/'){
 * @@author  Author(s): Jesus Rodriguez
 * @access   public
 * @param    string	date
-* @param 	string  separator input
-* @param 	string	separator output
+* @param    string	separator input
+* @param    string	separator output
 * @return   string
 */  
 

@@ -1,11 +1,13 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * 
- * 
- * @author
- * @version 
- */	
+/** 
+* 
+* @uses Modelo para la valija
+* @author Jesus Rodriguez en <jesus.rodriguez937@mppre.gob.ve>
+* @since 17/06/2013 a las 07:43:18 PM
+* 
+* 
+*/
 
 class Valija_model extends Model {
 
@@ -16,7 +18,7 @@ class Valija_model extends Model {
 	/*********************** Valija Despacho **************************/
 	
 	function aperturar(){
-		$valija_data = array(
+		$data = array(
 		'id_mision' 			 => $this->input->post('id_mision'),
 		'indice_valija' 		 => $this->input->post('indice_valija'),
 		'id_tipo_valija' 		 => $this->input->post('id_tipo_valija'),
@@ -38,8 +40,11 @@ class Valija_model extends Model {
 		'fecha_creacion' 		 => now_mysql_datetime(),
 		'fecha_actualizacion'	 => now_mysql_datetime()
 		);
-		$insert = $this->db->insert('valijas', $valija_data);
-		return $insert;
+		$this->db->insert('valijas', $data);
+		if ($this->db->affected_rows > 0)
+		    return true;
+		else
+		    return false;
 	}
 	
 	function get_valija_aperturada() {
@@ -66,7 +71,7 @@ class Valija_model extends Model {
 	}
 	
 	function editar_apertura() {
-		$valija_data = array(
+		$data = array(
 		'id_mision' 			 => $this->input->post('id_mision'),
 		'indice_valija' 		 => $this->input->post('indice_valija'),
 		'id_tipo_valija' 		 => $this->input->post('id_tipo_valija'),
@@ -86,14 +91,21 @@ class Valija_model extends Model {
 		'fecha_actualizacion'	 => now_mysql_datetime()
 		);
 		$this->db->where('id', $this->input->post('id'));
-		$update = $this->db->update('valijas', $valija_data);
-		return $update; 	
+		$this->db->update('valijas', $data);
+		if ($this->db->affected_rows()>0)
+		    return true;
+		else 
+		    return false;
+		
 	}
 	
 	function eliminar_apertura() {
 		$id 	= $this->uri->segment(3);
 		$this->db->delete('valijas', array('id' => $id));		
-		return $this->db->affected_rows();
+		if ($this->db->affected_rows > 0)
+		    return true;
+		else
+		    return false;
 	}
 	
 	function listar_aperturadas(){
@@ -137,7 +149,7 @@ class Valija_model extends Model {
 	function registrar_en_taquilla() {
 		$numero_nota = ($this->input->post('numero_nota')==0) ? '': $this->input->post('numero_nota');		  
 		$numero_guia = ($this->input->post('numero_guia')==0) ? '': $this->input->post('numero_guia');	
-		$valija_data = array(
+		$data = array(
 		'id_mision' 			 => $this->input->post('id_mision'),
 		'id_tipo_valija' 		 => $this->input->post('id_tipo_valija'),
 		'id_courrier' 			 => $this->input->post('id_courrier'),
@@ -162,8 +174,12 @@ class Valija_model extends Model {
 		'fecha_creacion' 		 => now_mysql_datetime(),
 		'fecha_actualizacion'	 => now_mysql_datetime()
 		);
-		$insert = $this->db->insert('valija_registro_taquilla', $valija_data);
-		return $insert;
+		$insert = $this->db->insert('valija_registro_taquilla', data);
+		if ($this->db->affected_rows > 0)
+		    return true;
+		else
+		    return false;
+		
 	}
 	
 	function editar_en_taquilla() {
@@ -194,31 +210,34 @@ class Valija_model extends Model {
 		);
 		$this->db->where('id', $this->input->post('id'));
 		$update = $this->db->update('valija_registro_taquilla', $valija_data);
-		return $update; 
+		if ($this->db->affected_rows > 0)
+		    return true;
+		else
+		    return false;
 	}
 		
 	function mostrar_en_taquilla() {
 		$id = $this->uri->segment(3);
-		$valija = $this->db->query(	"
-									SELECT *,  v.id as id_valija,
-									misiones.nombre_mision,
-									courriers.nombre as nombre_courrier,
-									tipo_valija.nombre as nombre_tipo_valija,
-									tipo_registro.nombre as nombre_tipo_registro,
-									tipo_correspondencia.nombre as nombre_tipo_correspondencia,
-									tipo_asunto.nombre as nombre_tipo_asunto,
-									estructura.nombre as nombre_destino,
-									estatus_taquilla.nombre as nombre_estatus_taquilla
-									FROM valijas_aperturadas v
-									LEFT Join misiones ON v.id_mision = misiones.id_mision
-									LEFT Join courriers   ON v.id_courrier = courriers.id
-									LEFT Join tipo_valija ON v.id_tipo_valija = tipo_valija.id
-									LEFT Join tipo_registro ON v.id_tipo_registro = tipo_registro.id
-									LEFT Join tipo_correspondencia ON v.id_tipo_correspondencia = tipo_correspondencia.id
-									LEFT Join tipo_asunto ON v.id_tipo_asunto = tipo_asunto.id
-									LEFT Join estructura ON v.id_destino = estructura.id_estructura
-									LEFT Join estatus_taquilla ON v.id_estatus_taquilla = estatus_taquilla.id
-									Where v.id = $id");
+		$valija = $this->db->query("
+		SELECT *,  v.id as id_valija,
+		misiones.nombre_mision,
+		courriers.nombre as nombre_courrier,
+		tipo_valija.nombre as nombre_tipo_valija,
+		tipo_registro.nombre as nombre_tipo_registro,
+		tipo_correspondencia.nombre as nombre_tipo_correspondencia,
+		tipo_asunto.nombre as nombre_tipo_asunto,
+		estructura.nombre as nombre_destino,
+		estatus_taquilla.nombre as nombre_estatus_taquilla
+		FROM valijas_aperturadas v
+		LEFT Join misiones ON v.id_mision = misiones.id_mision
+		LEFT Join courriers   ON v.id_courrier = courriers.id
+		LEFT Join tipo_valija ON v.id_tipo_valija = tipo_valija.id
+		LEFT Join tipo_registro ON v.id_tipo_registro = tipo_registro.id
+		LEFT Join tipo_correspondencia ON v.id_tipo_correspondencia = tipo_correspondencia.id
+		LEFT Join tipo_asunto ON v.id_tipo_asunto = tipo_asunto.id
+		LEFT Join estructura ON v.id_destino = estructura.id_estructura
+		LEFT Join estatus_taquilla ON v.id_estatus_taquilla = estatus_taquilla.id
+		Where v.id = $id");
 		return $valija->row();
 
 	}
@@ -282,7 +301,10 @@ class Valija_model extends Model {
 	function eliminar_en_taquilla() {
 		$id 	= $this->uri->segment(3);
 		$this->db->delete('valija_registro_taquilla', array('id' => $id));		
-		return $this->db->affected_rows();
+		if ($this->db->affected_rows > 0)
+		    return true;
+		else
+		    return false;
 	}
 
 	function buscar_ingreso () {
