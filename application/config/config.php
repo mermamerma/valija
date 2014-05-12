@@ -14,8 +14,8 @@
 
 $config['fire_php_enabled'] = true;
 
-#$config['base_url']	= "http://localhost/valija";
-$config['base_url']	= "http://172.27.38.66/valija";
+$config['base_url']	= "http://localhost/valija";
+#$config['base_url']	= "http://172.27.38.66/valija";
 #$config['base_url']	= "http://172.31.1.167/valija";
 
 
@@ -226,7 +226,7 @@ $config['cache_path'] = '';
 | enabled you MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = "";
+$config['encryption_key'] = "v@1iJ@";
 
 /*
 |--------------------------------------------------------------------------

@@ -69,7 +69,7 @@ class Usuario extends Controller {
         
         $data['options'] = $options;    	
     	
-    	$rules[] = ('usuario : { required:true, username:true }');
+    	$rules[] = ('usuario : { required:true }');
 		$rules[] = ('id_estatus : { required:true }');
 		$rules[] = ('nombres : { required:true }');
 		$rules[] = ('apellidos : { required:true }');

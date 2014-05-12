@@ -116,10 +116,12 @@
             <tr>
               <td colspan="2"><table width="659" border="0">
                 <tr>
-                  <td><li>
+                  <td>
+				  	  <li>
                       <label class="description" for="element_2">Observaciones</label>
                       <?=form_textarea('observaciones','','class="element textarea medium" style="width:450px"')?>
-                  </li></td>
+                  	  </li>
+				  </td>
                 </tr>
               </table></td>
             </tr>

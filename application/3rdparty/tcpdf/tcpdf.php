@@ -48,7 +48,7 @@
 //  * supports JPEG, PNG and SVG images natively, all images supported by GD (GD, GD2, GD2PART, GIF, JPEG, PNG, BMP, XBM, XPM) and all images supported via ImagMagick (http://www.imagemagick.org/www/formats.html)
 //  * 1D and 2D barcodes: CODE 39, ANSI MH10.8M-1983, USD-3, 3 of 9, CODE 93, USS-93, Standard 2 of 5, Interleaved 2 of 5, CODE 128 A/B/C, 2 and 5 Digits UPC-Based Extention, EAN 8, EAN 13, UPC-A, UPC-E, MSI, POSTNET, PLANET, RMS4CC (Royal Mail 4-state Customer Code), CBC (Customer Bar Code), KIX (Klant index - Customer index), Intelligent Mail Barcode, Onecode, USPS-B-3200, CODABAR, CODE 11, PHARMACODE, PHARMACODE TWO-TRACKS, Datamatrix, QR-Code, PDF417;
 //  * JPEG and PNG ICC profiles, Grayscale, RGB, CMYK, Spot Colors and Transparencies;
-//  * automatic page header and footer management;
+//  * automatic page header and footer management;Footer
 //  * document encryption up to 256 bit and digital signature certifications;
 //  * transactions to UNDO commands;
 //  * PDF annotations, including links, text and file attachments;
@@ -75,7 +75,7 @@
 // Warren Sherliker (wsherliker@gmail.com) for better image handling.
 // dullus for text Justification.
 // Bob Vincent (pillarsdotnet@users.sourceforge.net) for <li> value attribute.
-// Patrick Benny for text stretch suggestion on Cell().
+// Patrick Benny for text stretch suggestion on Cell().Footer
 // Johannes G�ntert for JavaScript support.
 // Denis Van Nuffelen for Dynamic Form.
 // Jacek Czekaj for multibyte justification
@@ -3292,10 +3292,6 @@ class TCPDF {
 	}
 	
 		
-	public function setFooterText($text='') {
-		$this->footer_text = $text;
-	}	
-	
 	/**
 	 * Returns header data:
 	 * <ul><li>$ret['logo'] = logo image</li><li>$ret['logo_width'] = width of the image logo in user units</li><li>$ret['title'] = header title</li><li>$ret['string'] = header description string</li></ul>
@@ -3516,11 +3512,11 @@ class TCPDF {
 		}
 		$w_page = isset($this->l['w_page']) ? $this->l['w_page'].' ' : '';
 		if (empty($this->pagegroups)) {
-			#$pagenumtxt = $w_page.$this->getAliasNumPage().' / '.$this->getAliasNbPages();
-			$pagenumtxt = $this->footer_text.' '.$this->l['w_page'].' '.$this->getAliasNumPage().' / '.$this->getAliasNbPages();
+			$pagenumtxt = $w_page.$this->getAliasNumPage().' / '.$this->getAliasNbPages();
+			#$pagenumtxt = $this->footer_text.' '.$this->l['w_page'].' '.$this->getAliasNumPage().' / '.$this->getAliasNbPages();
 		} else {
-			#$pagenumtxt = $w_page.$this->getPageNumGroupAlias().' / '.$this->getPageGroupAlias();
-			$pagenumtxt = $this->footer_text.' '.$this->l['w_page'].' '.$this->getPageNumGroupAlias().' / '.$this->getPageGroupAlias();
+			$pagenumtxt = $w_page.$this->getPageNumGroupAlias().' / '.$this->getPageGroupAlias();
+			#$pagenumtxt = $this->footer_text.' '.$this->l['w_page'].' '.$this->getPageNumGroupAlias().' / '.$this->getPageGroupAlias();
 		}
 		$this->SetY($cur_y);
 		//Print page number
