@@ -18,10 +18,15 @@
 <script>
 $(function(){
 		$('#datatable').dataTable({
-			"bAutoWidth":true,
-			"bJQueryUI": true, 
+			"aaSorting": [[ 0, "desc" ]],
+			"bRetrieve" :true,
 			"bPaginate": false,
-			"bInfo": false
+			"bJQueryUI": true,
+			"sPaginationType": "full_numbers",
+			"iDisplayLength": 10,
+			"sScrollX": "80%",
+			"bDestroy": true,	
+			"bScrollCollapse": true
 		});
 });
 </script>

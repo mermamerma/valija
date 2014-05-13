@@ -8,7 +8,8 @@
  */	
 
 class Correspondencia extends Controller {
-    function __construct() {
+    
+	function __construct() {
 		parent::Controller();
 		$this->load->model('correspondencia_model');
 		is_logged_in();
@@ -18,7 +19,7 @@ class Correspondencia extends Controller {
 
     }
     
-    function frm_correspondencia() {
+    function formulario() {
         #$this->firephp->setEnabled(FALSE);
         $myvariable = 'Hola Mundo';
         $miArray = array("indice" => "valor", "otra cosa" => "otro valor");
@@ -70,7 +71,7 @@ class Correspondencia extends Controller {
 			$('#fecha_c').attr('title', '".fecha_legible($row->creacion)."');	
 			$('#fecha_a').attr('title', '".fecha_legible($row->actualizacion)."');			
 			</script>";
-	    	register_log('Correspondencia',"Acceso al formulario para editar la correspondencia con ID => $id");
+	    	register_log('Acceso',"Acceso al formulario para editar la correspondencia con ID => $id");
 	    	
     	}
     	// Cargar el formulario para agregar
@@ -84,7 +85,7 @@ class Correspondencia extends Controller {
     		$script .= "$('input:radio[name=entrada]').filter('[value=V]').attr('checked', true); ";    		
     		$script .= '});';
     		$script .= "</script>";	    	
-	    	register_log('Correspondencia',"Acceso al formulario para registrar nueva correspondencia");			
+	    	register_log('Acceso',"Acceso al formulario para registrar nueva correspondencia");			
 		}
 		$data['script'] = $script;
 		$this->load->view('sistema/template',$data);
@@ -94,7 +95,7 @@ class Correspondencia extends Controller {
     	if ($this->input->post('id') == '') {	
     		if ($query = $this->correspondencia_model->registrar()) {
     			$id   = $this->db->insert_id();
-    			register_log('Correspondencia',"Se ingreso nuevo registro con en ID => $id",1); 
+    			register_log('Inserción',"Se ingresó nueva correspondencia con en ID => $id",1); 
    				$str  = dialog('Información','¡Correspondencia Registrada Exitosamente!',2);
    				$str .= "<script>$('#id').val('$id');</script>";   				 
    				echo  $str ;   		
@@ -103,7 +104,7 @@ class Correspondencia extends Controller {
     	elseif ($this->input->post('id') != '') {    		
     		if ($query = $this->correspondencia_model->editar()) {
     			$id = $this->input->post('id');
-    			register_log('Correspondencia',"Se editó la correspondencia con en ID => $id",1);    			    			
+    			register_log('Modificación',"Se modificó la correspondencia con en ID => $id",1);    			    			
    				$str  = dialog('Correspondencia','¡Correspondencia Modificada Exitosamente!',2);
    				$str .= "<script> \$('#fecha_a').html('Justo ahora'); $('#fecha_a').attr('title','Justo ahora');</script>";   				
    				echo  $str ;
@@ -140,7 +141,7 @@ class Correspondencia extends Controller {
 		
 		if ($correspondencias > 0) {				
 			foreach ($correspondencias as $row) {								
-				$opciones  = "<a href='".base_url()."correspondencia/frm_correspondencia/{$row->id}'><img title='Editar' src='".base_url()."public/images/editar.png' align='absmiddle'/></a>   ";
+				$opciones  = "<a href='".base_url()."correspondencia/formulario/{$row->id}'><img title='Editar' src='".base_url()."public/images/editar.png' align='absmiddle'/></a>   ";
 				$opciones .= "<a href='#' onclick='javascript:eliminar({$row->id})'><img title='Eliminar' src='".base_url()."public/images/delete.png' align='absmiddle'/></a>";				
 				$this->table->add_row($row->id, $row->mision, $row->asunto, $row->destinatario, $row->indice_interno,
 									  $row->fecha_ingreso, $row->indice_remitente, $row->fecha_correspondencia,
@@ -151,7 +152,7 @@ class Correspondencia extends Controller {
 		
 		$this->table->set_template($tmpl); 	
 
-		register_log('Correspondencia',"Acceso a la listar Correspondencia");  
+		register_log('Consulta',"Acceso a la listar Correspondencia");  
 		$data ['main_content'] 		= 'correspondencia/listar';  
 		$this->load->view('sistema/template',$data); 
     }
@@ -184,12 +185,12 @@ class Correspondencia extends Controller {
     	$id = $this->uri->segment(3);
 		$str = '';		
 		if ($this->correspondencia_model->eliminar($id)) { 
-	   			register_log('Correspondencia',"Se eliminó una correspondencia con en ID => $id",1);    			    			
+	   			register_log('Eliminación',"Se eliminó una correspondencia con en ID => $id",1);    			    			
    				$str  = dialog('Información','¡Correspondencia Eliminada Exitosamente!',2);
-   				$str .= "<script>$('#tr_$id').remove();</script>";  				
+   				$str .= "<script>$('#tr_$id').remove();$('#imprimir_up').css('visibility','hidden'); $('#imprimir_down').css('visibility','hidden');</script>";  				
     	}
     	else {    		
-    		register_log('Correspondencia',"Error al tratar de eliminar una correspondencia con en ID => $id",1);    			    			
+    		register_log('Eliminación',"Error al tratar de eliminar una correspondencia con en ID => $id",1);    			    			
    			$str  = dialog('Atención','¡Error al eliminar el registro!',1); 				
    			
     	}
@@ -203,7 +204,7 @@ class Correspondencia extends Controller {
     	#$rules[] = ('indice_interno : { required:true, digits:true }');    	
 		$rules[] = ('fecha_ingreso : { dateDE: true  }');		    	
 		$data['rules'] = $rules;
-    	register_log('Correspondencia',"Acceso al formulario para Buscar el Ingreso de Correspondencia");	
+    	register_log('Acceso',"Acceso al formulario para Buscar el Ingreso de Correspondencia");	
 		$data['script'] = $script;
 		$this->load->view('sistema/template',$data);
     }
@@ -211,6 +212,7 @@ class Correspondencia extends Controller {
     function do_buscar_ingreso () {
     	sleep(1);
     	$result = $this->correspondencia_model->buscar_ingreso();
+		register_log('Consulta',"Se generó una Busqueda en el Ingreso",1);	
      	$this->load->library('table');
     	$this->table->set_tr_id(TRUE);
 		$this->table->set_heading('ID', 'Misión', 'Asunto', 'Destinatario', 'Indice Interno', 'Fecha Ingreso', 'Indice Remitente', 
@@ -219,7 +221,7 @@ class Correspondencia extends Controller {
 		$tmpl = array ('table_open'=>'<table border="0" width="100%" cellpadding="1" cellspacing="0"  class="display" id="datatable">');
    		if ($result) {				
 			foreach ($result as $row) {								
-				$opciones  = "<a href='".base_url()."correspondencia/frm_correspondencia/{$row->id}'><img title='Editar' src='".base_url()."public/images/editar.png' align='absmiddle'/></a>   ";
+				$opciones  = "<a href='".base_url()."correspondencia/formulario/{$row->id}'><img title='Editar' src='".base_url()."public/images/editar.png' align='absmiddle'/></a>   ";
 				$opciones .= "<a href='#' onclick='javascript:eliminar({$row->id})'><img title='Eliminar' src='".base_url()."public/images/delete.png' align='absmiddle'/></a>";				
 				$this->table->add_row($row->id, $row->mision, $row->asunto, $row->destinatario, $row->indice_interno,
 									  $row->fecha_ingreso, $row->indice_remitente, $row->fecha_correspondencia,
@@ -294,6 +296,7 @@ class Correspondencia extends Controller {
 			</tr>
 		</thead> ";
     	$result = $this->correspondencia_model->buscar_ingreso();
+		register_log('Generación',"Se generó un Reporte PDF en el Ingreso",1);	
     	$pos = 1 ;    	    
     	$estiloFila = '';
     	$total_rows = 0 ;

@@ -82,7 +82,7 @@ $(function(){
 	<ul>
 		<li><a href="#">Ingreso</a>
 			<ul>
-				<li><a href="<?=base_url()."correspondencia/frm_correspondencia"?>">Registrar</a></li>				
+				<li><a href="<?=base_url()."correspondencia/formulario"?>">Registrar</a></li>				
 				<li><a href="<?=base_url()."correspondencia/frm_buscar_ingreso"?>">Buscar</a></li>
 				<li><a href="<?=base_url()."correspondencia/listar"?>">Listar</a></li>
 			</ul>

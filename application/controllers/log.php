@@ -34,11 +34,11 @@ class Log extends Controller {
 		
 		$this->load->library('table');
 				
-		$this->table->set_heading('Id','Usuario', 'IP', 'Modulo', 'Descripción', 'Fecha');	
-		$tmpl = array ('table_open'=>'<table border="0" cellpadding="4" cellspacing="0"   class="display" id="datatable">');
+		$this->table->set_heading('Id','Usuario', 'IP', 'URL','Modulo','Acción', 'Descripción', 'Fecha');	
+		$tmpl = array ('table_open'=>'<table border="0" width="100%" cellpadding="4" cellspacing="0"   class="display" id="datatable">');
 		$this->table->set_template($tmpl); 	
 
-		register_log('Log',"Acceso a la Bitácora");  
+		register_log('Consulta',"Acceso a la Bitácora General");  
 		$data ['main_content'] 		= 'sistema/view_log';  
 		$this->load->view('sistema/template',$data);  	
     }
@@ -48,6 +48,7 @@ class Log extends Controller {
 		$this->load->library('pagination');
 		$id_usuario = $this->uri->segment(3);
 		$usuario = $this->usuario_model->get_usuario_by_id($id_usuario);
+		register_log('Consulta',"Acceso a la Bitacora del Usuario => $usuario->usuario");  
 		$this->config->set_item('enable_query_strings',FALSE);
 		$total_rows 				= $this->log_model->count_logs_user($id_usuario);  
 		$config['uri_segment'] 		= 4;  	
@@ -65,11 +66,11 @@ class Log extends Controller {
 		$total = count($data['results']);
 		$this->load->library('table');
 				
-		$this->table->set_heading('usuario', 'IP', 'Acceso', 'Descripción', 'Fecha');	
+		$this->table->set_heading('usuario', 'IP', 'URL','Modulo', 'Acción', 'Descripción', 'Fecha');	
 		$tmpl = array ('table_open'=>'<table border="0" cellpadding="4" cellspacing="0"   class="display" id="datatable">');
 		$this->table->set_template($tmpl); 	
 
-		register_log('Log',"Acceso a la Bitacora del Usuario => $usuario->usuario");  
+		
 		$data ['main_content'] 		= 'sistema/view_log_user';  
 		$this->load->view('sistema/template',$data);  	
     }

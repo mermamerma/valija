@@ -20,7 +20,7 @@ class Log_model extends Model {
   }
   
   function get_logs_user($id, $num, $offset){
-  	$this->db->select(" usuarios.usuario AS 'usuario', log.ip AS 'ip', log.accion AS 'accion',log.detalle AS 'detalle', 
+  	$this->db->select(" usuarios.usuario AS 'usuario', log.ip AS 'ip', url, modulo, log.accion AS 'accion',log.detalle AS 'detalle', 
 					   date_format(log.fecha,'%d-%m-%Y %H:%i %p') AS 'fecha'", FALSE); 
   	$this->db->join('usuarios', 'log.id_usuario = usuarios.id', 'left');
   	$this->db->order_by("log.id", "DESC"); 

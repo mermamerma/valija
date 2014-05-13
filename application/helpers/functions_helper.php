@@ -1,5 +1,100 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+function to_mayuscula($input) {
+	return mb_strtoupper($input,'UTF-8') ;
+}
+
+function to_minuscula($input) {
+	return mb_strtolower($input,'UTF-8') ;
+}
+
+function to_moneda($input){
+	return number_format($input,2,',' ,'.') ;
+}
+
+function to_moneda_bd($string)
+{
+	$string = str_replace('.', '', $string) ;
+    $Negative = 0;
+
+    if(preg_match("/^\-/",$string))
+    {
+        $Negative = 1;
+        $string = preg_replace("|\-|","",$string);
+    }
+
+    $string = preg_replace("|\.|","",$string);
+    $Full = @split("[\,]",$string);
+
+    $Count = count($Full);
+
+    if($Count > 1)
+    {
+        $First = $Full[0];
+        $Second = $Full[1];
+        $NumCents = strlen($Second);
+        if($NumCents == 2)
+        {
+
+        }
+        else if($NumCents < 2)
+        {
+            $Second = $Second . "0";
+        }
+    }
+    else if(@$NumCents > 2)
+    {
+        $Temp = substr($Second,0,3);
+        $Second = substr($Temp,0,2);
+    }else
+    {
+        $First = $Full[0];
+        $Second = "00";
+    }
+
+    $length = strlen($First);
+
+    if( $length <= 3 )
+    {
+        $string = $First . "." . $Second;
+
+    // if negative flag is set, add negative to number
+        if($Negative == 1)
+        {
+            $string = "-" . $string;
+        }
+
+        return $string;
+    }
+    else
+    {
+        $loop_count = intval( ( $length / 3 ) );
+        $section_length = -3;
+        for( $i = 0; $i < $loop_count; $i++ )
+        {
+            $sections[$i] = substr( $First, $section_length, 3 );
+            $section_length = $section_length - 3;
+        }
+
+        $stub = ( $length % 3 );
+        if( $stub != 0 )
+        {
+            $sections[$i] = substr( $First, 0, $stub );
+        }
+
+        $Done = implode( "", array_reverse( $sections ) );
+        $Done = $Done . "." . $Second;
+
+        if($Negative == 1)
+        {
+            $Done = "-" . $Done;
+        }
+
+        return $Done;
+
+    }
+}
+
 /**
 * 
 * @Desc Registra un log de acividad 
@@ -12,14 +107,16 @@
 * @return   void
 */
 
-function register_log($accion = '', $desc ='', $query = 0)	{	
+function register_log($accion = '', $desc ='', $query = 0)	{		
 	$CI 		=  &get_instance();
+	$id_usuario =  $CI->session->userdata('id_usuario');
+	$modulo		=  ucfirst(to_minuscula($CI->uri->segment(1)));	
 	$id_usuario =  $CI->session->userdata('id');
 	$url		=  $_SERVER['REQUEST_URI'];  
 	$ip			=  $_SERVER['REMOTE_ADDR'];
 	$sql		=  ($query) ? $CI->db->last_query() : '';
 	$fecha		=  now_mysql_datetime();
-	$log 		=  array('id_usuario'=>$id_usuario,'ip'=>$ip,'url'=>$url,'accion'=>$accion,'detalle'=>$desc,'sentencia'=>$sql,'fecha'=>$fecha);
+	$log 		=  array('id_usuario'=>$id_usuario,'ip'=>$ip,'url'=>$url, 'modulo'=>$modulo,'accion'=>$accion,'detalle'=>$desc,'sentencia'=>$sql,'fecha'=>$fecha);
 	$CI->db->insert('log', $log);		 
 }
 

@@ -123,7 +123,7 @@ class Valija_model extends Model {
 			valijas.fecha_actualizacion,
 			tipo_valija.nombre AS tipo,
 			estatus_valija.nombre AS estatus,
-			courriers.nombre AS courrier,
+			courriers.nombre AS courrier,http://www.noticias24.com/index.html
 			usuarios.usuario AS usuario,
 			tipo_mision.nombre AS nombre_mision,
 			ciudades.nombre_ciudad,
@@ -174,8 +174,8 @@ class Valija_model extends Model {
 		'fecha_creacion' 		 => now_mysql_datetime(),
 		'fecha_actualizacion'	 => now_mysql_datetime()
 		);
-		$insert = $this->db->insert('valija_registro_taquilla', data);
-		if ($this->db->affected_rows > 0)
+		$insert = $this->db->insert('valija_registro_taquilla', $data);
+		if ($this->db->affected_rows() > 0)
 		    return true;
 		else
 		    return false;
@@ -210,7 +210,7 @@ class Valija_model extends Model {
 		);
 		$this->db->where('id', $this->input->post('id'));
 		$update = $this->db->update('valija_registro_taquilla', $valija_data);
-		if ($this->db->affected_rows > 0)
+		if ($this->db->affected_rows() > 0)
 		    return true;
 		else
 		    return false;

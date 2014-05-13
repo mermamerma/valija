@@ -1,4 +1,3 @@
-
 <div id="dialog">
 </div>
 <div id="form_container">
@@ -6,7 +5,7 @@
 	<div class="form_description">
 	<h2><?=$momento;?></h2> 
 	<p>Formulario</p>
-	<?=form_hidden('id') ?>	  
+	<?=form_hidden('titulo') ?>	  
 	</div>
 	<br />
 	<fieldset>
@@ -79,13 +78,26 @@
 	<div id="resultado-ajax">
 	</div>	
 	<br />		       	
-	<div id="imprimir_down" class="boton" onclick="javascript:imprimir();" style="visibility:hidden">Generar PDF</div>
+	<div id="imprimir_down" class="boton" onclick="javascript:imprimir();" style="visibility:hidden">Generar PDF</div>	
 </form>
 </div>
 <?=ajaxifica('form1','correspondencia/do_buscar_ingreso', $rules, 'activityanimation.gif')?>
 <?=$script;?>
 <script type="text/javascript">
 function imprimir(){
+	// var titulo = prompt("Por favor coloque el titulo del reporte","Harry Potter");
 	$('#form1').submit();
+}
+function eliminar(id) {
+	var r = confirm('¿Esta seguro de Eliminar el Registro? \n La Operación no podrá deshacerse')
+	if (r) {
+		$.ajax({
+			url:'<?=base_url()?>correspondencia/eliminar/'+id,
+			type:'GET',		
+			success:function(data){ 
+				$('#resultado-ajax').html(data);			
+			}
+		});
+	}
 }
 </script>

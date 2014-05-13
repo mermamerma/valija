@@ -46,6 +46,7 @@ $config['jquery']['js_files_url_prefix']	= '/js/output/';			// prefix to prepend
 #$theme= "growl";
 #$theme= "bancoimagen";
 $theme= "cupertino";
+#$theme= "swanky-purse";
 
 $config['jquery']['libraries']['jquery_ui'] = array(
 													"path"	  => "jquery/plugins/",

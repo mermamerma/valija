@@ -20,6 +20,7 @@
 <script>
 $(function(){
 		$('#datatable').dataTable({
+			"aaSorting": [[ 0, "desc" ]],
 			"bAutoWidth":true,
 			"bJQueryUI": true, 
 			"bPaginate": false,

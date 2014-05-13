@@ -267,7 +267,7 @@ class Valija extends Controller {
 			$id = $this->uri->segment(3);			
 			$data ['main_content'] 		= 'valija/frm_editar_en_taquilla';
 			$this->load->view('sistema/template',$data); 
-			register_log('Valija',"Acceso al formulario para editar registro en taquilla con el ID => $id");
+			register_log('Acceso',"Acceso al formulario para editar registro en taquilla con el ID => $id");
 		}
 		else 
 			show_404();
@@ -278,12 +278,12 @@ class Valija extends Controller {
 		$id = $this->uri->segment(3);
 		$str = '';		
 		if ($this->valija_model->eliminar_en_taquilla()) { 
-	   			register_log('Valija',"Se eliminó un registro en taquilla con en ID => $id",1);    			    			
+	   			register_log('Eliminación',"Se eliminó un registro en taquilla con en ID => $id",1);    			    			
    				$str  = dialog('Información','¡Valija Eliminada Exitosamente!',2);
    				$str .= "<script>$('#tr_$id').remove();</script>";  				
     	}
     	else {    		
-    		register_log('Valija',"Error al tratar de eliminar un registro en taquilla con en ID => $id",1);    			    			
+    		register_log('Eliminación',"Error al tratar de eliminar un registro en taquilla con en ID => $id",1);    			    			
    			$str  = dialog('Atención','¡Error al eliminar el registro!',1); 				
    			
     	}

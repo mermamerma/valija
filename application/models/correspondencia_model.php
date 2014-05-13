@@ -252,4 +252,4 @@ class Correspondencia_model extends Model {
 		return $this->db->affected_rows();
 	}
 	       
-        }
+}
