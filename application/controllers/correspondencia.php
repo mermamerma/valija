@@ -19,11 +19,11 @@ class Correspondencia extends Controller {
 
     }
     
-    function formulario() {
+    function formulario2() {
         #$this->firephp->setEnabled(FALSE);
         $myvariable = 'Hola Mundo';
         $miArray = array("indice" => "valor", "otra cosa" => "otro valor");
-    	$id = $this->uri->segment(3);
+    	$id = (int) $this->uri->segment(3);
         #$id = 20;
         $this->firephp->log($id, '$id');
         $script = '';    	
@@ -40,13 +40,12 @@ class Correspondencia extends Controller {
         $rules[] = ('fecha_correspondencia : { dateDE: true  }');  
         $rules[] = ('id_tipo_documento : { required:true }');
         $rules[] = ('numero_docuemento : { digits:true }');	    	
-        $data['rules'] = $rules;
-    	
+        $data['rules'] = $rules;    	
     	// Para cargar el registro por el ID pasado en el GET y mostrar el formulario con sus valores para editarlo 
-    	if ($id AND ($row = $this->correspondencia_model->get_correspondencia($id))) { 
-	    	$data['momento'] = 'Editar Correspondencia';
-	    	
-    		$script = "
+    	if ($id > 0) { 
+			$row = $this->correspondencia_model->get_correspondencia($id) ;	
+	    	$data['momento'] = 'Editar Correspondencia';	    	    		
+			$script = "
 			<script>						
 			$('#id').val('{$row->id}');
 			$('#indice_interno').val('{$row->indice_interno}');
@@ -70,9 +69,8 @@ class Correspondencia extends Controller {
 			$('#fecha_a').html('{$row->easydate_a}');
 			$('#fecha_c').attr('title', '".fecha_legible($row->creacion)."');	
 			$('#fecha_a').attr('title', '".fecha_legible($row->actualizacion)."');			
-			</script>";
-	    	register_log('Acceso',"Acceso al formulario para editar la correspondencia con ID => $id");
-	    	
+			</script>";	
+			register_log('Acceso',"Acceso al formulario para editar la correspondencia con ID => $id");	    	
     	}
     	// Cargar el formulario para agregar
     	else {
@@ -91,6 +89,49 @@ class Correspondencia extends Controller {
 		$this->load->view('sistema/template',$data);
     }
     
+	function formulario() {
+        #$this->firephp->setEnabled(FALSE);
+        $myvariable = 'Hola Mundo';
+        $miArray = array("indice" => "valor", "otra cosa" => "otro valor");
+    	$id = (int) $this->uri->segment(3);
+        #$id = 20;
+        $this->firephp->log($id, '$id');
+        $script = '';    	
+    	$data ['main_content'] = 'correspondencia/frm_correspondencia';    
+    	
+    	# Agrego las reglas para validar el formulario para un nuevo ingreso
+    	$rules[] = ('indice_interno : { required:true, digits:true }');
+        $rules[] = ('fecha_ingreso : { required:true, dateDE: true  }');				
+        $rules[] = ('id_mision : { required:true }'); 
+        $rules[] = ('asunto : { required:true }');    	
+        $rules[] = ('numero_ingreso : { required:true, digits:true }');							    	
+        $rules[] = ('id_destinatario : { required:true }');
+        $rules[] = ('indice_remitente : { required:true, digits:true }');
+        $rules[] = ('fecha_correspondencia : { dateDE: true  }');  
+        $rules[] = ('id_tipo_documento : { required:true }');
+        $rules[] = ('numero_docuemento : { digits:true }');	    	
+        $data['rules'] = $rules;    	
+    	// Para cargar el registro por el ID pasado en el GET y mostrar el formulario con sus valores para editarlo 
+    	if ($id > 0) { 
+			$row = $this->correspondencia_model->get_correspondencia($id) ;	
+			$data['row'] = $row ;
+			$data['script'] = $this->load->view('correspondencia/set_editar', $data, TRUE);
+			$algo = $this->load->view('correspondencia/set_editar', $data, TRUE);
+	    	$data['momento'] = 'Editar Correspondencia';
+			#die('Valor: '.$data['script']);
+			#die('Algo: '.$algo);
+			#var_dump($data); exit;
+			register_log('Acceso',"Acceso al formulario para editar la correspondencia con ID => $id");	    	
+    	}
+    	// Cargar el formulario para agregar
+    	else {
+    		$data['momento'] = 'Registrar Correspondencia';
+			$data['script'] = $this->load->view('correspondencia/set_nuevo', $data, TRUE);    		    	
+	    	register_log('Acceso',"Acceso al formulario para registrar nueva correspondencia");			
+		}		
+		$this->load->view('sistema/template',$data);
+    }
+	
     function guardar() {
     	if ($this->input->post('id') == '') {	
     		if ($query = $this->correspondencia_model->registrar()) {

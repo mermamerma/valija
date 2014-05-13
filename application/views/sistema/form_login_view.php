@@ -8,12 +8,12 @@
 <ul><li id="li_1" name="li_1">
 		<label class="description" for="element_1">Usuario</label>
 		<div>
-		<input type="text" id="usuario" name="usuario" class="element text medium-medium" maxlength="50" value="<?=set_value('usuario')?>" style="text-transform: none;" /> 
+			<input placeholder="Usuario del Correo Institucional" type="text" id="usuario" name="usuario" class="element text medium-medium" maxlength="50" value="<?=set_value('usuario')?>" style="text-transform: none;" /> 
 		</div>
 		</li><li id="li_2">
 		<label class="description" for="element_2">Contraseña </label>
 		<div>
-			<input type="password" id="password" name="password" class="element text medium-medium" maxlength="50" value="" style="text-transform: none;" /> 
+			<input placeholder="Contraseña del Correo" type="password" id="password" name="password" class="element text medium-medium" maxlength="50" value="" style="text-transform: none;" /> 
 		</div>
 		</li><li class="buttons">
 		  <input type="submit" name="aceptar" id="aceptar" class="boton" value="Aceptar"/>
@@ -28,5 +28,8 @@
   	  	<br/>
   </form>
 <script>
-$(".boton").button(); 
+$(document).ready(function(){				
+	$(".boton").button(); 
+	$('#usuario').focus(); 
+});	
 </script>

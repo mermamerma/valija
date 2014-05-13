@@ -13,8 +13,9 @@ class Usuario_model extends Model {
 		parent::Model();
 	}
 	
-	function validar_en_sistema(){
-		$this->db->where('usuario',$this->input->post('usuario'));
+	function validar_en_sistema($usuario){
+		#$usuario = $this->input->post('usuario');
+		$this->db->where('usuario',$usuario);
 		#$this->db->where('password', md5($this->input->post('password')));
 		$this->db->limit(1);
 		$query = $this->db->get('usuarios');

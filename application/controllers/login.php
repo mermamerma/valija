@@ -35,6 +35,14 @@ class Login extends Controller {
 		$usuario  = $this->input->post('usuario');
 		$password = $this->input->post('password');
 		
+		$flag = strpos($usuario,'@');		
+		if ($flag){
+			$pos = strpos($usuario,'@');
+			$usuario = substr($usuario,0,$pos);
+		}
+		
+		#die($usuario);
+		
     	$sistema = $this->Usuario_model->validar_en_sistema($usuario);
     	$ldap = $this->Usuario_model->validar_en_ldap($usuario, $password);
     	#$ldap = true ;

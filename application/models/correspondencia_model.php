@@ -104,7 +104,7 @@ class Correspondencia_model extends Model {
 	if ($num_rows > 0 )
 		return $query->row() ;		
 	else 
-		return 0;			
+		return FALSE;			
   }
   
 	function buscar_ingreso(){
