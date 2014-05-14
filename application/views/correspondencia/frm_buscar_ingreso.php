@@ -85,7 +85,10 @@
 <?=$script;?>
 <script type="text/javascript">
 function imprimir(){
-	// var titulo = prompt("Por favor coloque el titulo del reporte","Harry Potter");
+	var titulo = prompt("Si desea algún título en el reporte, Coloquelo Por favor",'');
+	if(titulo != '') {
+		$('#titulo').val(titulo);
+	}
 	$('#form1').submit();
 }
 function eliminar(id) {
