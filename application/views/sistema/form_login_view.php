@@ -13,7 +13,7 @@
 		</li><li id="li_2">
 		<label class="description" for="element_2">Contraseña </label>
 		<div>
-			<input placeholder="Contraseña del Correo" type="password" id="password" name="password" class="element text medium-medium" maxlength="50" value="" style="text-transform: none;" /> 
+			<input placeholder="Contraseña del Correo Institucional" type="password" id="password" name="password" class="element text medium-medium" maxlength="50" value="" style="text-transform: none;" /> 
 		</div>
 		</li><li class="buttons">
 		  <input type="submit" name="aceptar" id="aceptar" class="boton" value="Aceptar"/>
