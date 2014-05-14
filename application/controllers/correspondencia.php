@@ -296,8 +296,6 @@ class Correspondencia extends Controller {
         $this->pdf->AddPage('L','LEGAL');              
         $html  = "" ;
         $anio = date('Y');
-		$titulo = ($this->input->post('titulo') == '')? '': to_mayuscula($this->input->post('titulo')).'<br/>' ;
-		
         $indice_interno = $this->input->post('indice_interno');
         $mision = $this->input->post('mision');
         $destinatario = ($this->input->post('destinatario')!= '')? ' - '.$this->input->post('destinatario'):'';
@@ -313,7 +311,7 @@ class Correspondencia extends Controller {
 		<table  border=\"1\">
 		<thead>
 			<tr align=\"center\">
-				<th colspan=\"12\"  bgcolor=\"#E5E5E5\"><h2  align=\"center\"> $titulo RELACIÓN DE CORRESPONDENCIA $anio $destinatario </h2></th>
+				<th colspan=\"12\"  bgcolor=\"#E5E5E5\"><h2  align=\"center\">RELACIÓN DE CORRESPONDENCIA $anio $destinatario</h2></th>
 			</tr>
 				<tr align=\"center\" bgcolor=\"#E5E5E5\" style=\"font-weight:bold\">
 				<th rowspan=\"3\"><h3>Procedencia</h3></th>
