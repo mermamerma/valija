@@ -5,6 +5,7 @@
 <title>Sistema de Valija Diplomática</title>
 <link rel="shortcut icon" href="<?=base_url()?>public/images/maleta_ico.png" />
 <?=link_tag ( 'public/css/styles.css' );?>
+<?= script_tag('public/js/my_functions.js') ?>
 <?=$this->jquery->output ();?>
 </head>
 <?=img ( $top_png = array ('src' => 'public/images/top.png', 'width' => '736', 'height' => '11', 'id' => 'top' ) );?>

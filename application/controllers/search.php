@@ -29,6 +29,7 @@ class Search extends Controller {
     			break;
     		case 'estructura_in':
     			$sql = "SELECT id, nombre as label FROM estructura WHERE nombre like '%$term%' AND id_ubicacion = 1	ORDER BY nombre ASC	";
+				$sql = "SELECT id, nombre as label FROM estructura WHERE nombre like '%$term%' AND estatus = 'A'ORDER BY nombre ASC	";
     			break;
     		case 'estructura_out':
     			$sql = "SELECT id, nombre as label FROM estructura WHERE nombre like '%$term%' AND id_ubicacion = 2	ORDER BY nombre ASC	";

@@ -310,7 +310,8 @@ class Maestro extends Controller {
                 $rules[] = ('id_estructura : { required:true }');                                               
                 $script  = '<script>';                                      
                 $script .= "\n$('#id_estructura').val('{$row->id}');\n";
-                $script .= "$('#id_ubicacion').val('{$row->id_ubicacion}');\n";
+                $script .= "$('#cod_uni_admi').val('{$row->cod_uni_admi}');\n";
+				 $script .= "$('#cod_uni_adsc').val('{$row->cod_uni_adsc}');\n";
                 $script .= "$('#nombre_estructura').val('{$row->nombre}');\n";                
                 $script .= '</script>';
                 $data['accion'] = 'Editar Estructura';          
@@ -332,13 +333,28 @@ class Maestro extends Controller {
     }
 
     function datatable_estructuras() { 
-        $tabla_html = " <table cellspacing='1'  class='display' id='datatable'><thead><tr><th>Estructura</th><th>Ubicación</th><th>Opciones</th></tr></thead>";      
+        $tabla_html = " <table cellspacing='1'  class='display' id='datatable'>
+						<thead>
+						<tr>
+							<th>ID</th>
+							<th>Cod. Und. Admin.</th>
+							<th>Cod. Und. Ascrip.</th>
+							<th>Nombre</th>
+							<th>Opciones</th>
+						</tr>
+						</thead>";      
         $rows = $this->maestro_model->get_estructuras()  ;                         
         foreach ($rows as $row) {
-                    $id_estructura  = $row->id_estructura;
+                    $id  = $row->id;
                     $img        = "<img src='".base_url()."public/images/editar.png' align='absmiddle'/>";
-                    $link       = "<a href='".base_url()."maestro/frm_estructura/$id_estructura'>$img</a>";
-                    $tabla_html .= "<tr><td>{$row->estructura}</td><td>{$row->ubicacion}</td><td>$link</td></tr>";
+                    $link       = "<a href='".base_url()."maestro/frm_estructura/$id'>$img</a>";
+                    $tabla_html .= "<tr>
+										<td>{$row->id}</td>
+										<td>{$row->cod_uni_admi}</td>
+										<td>{$row->cod_uni_adsc}</td>
+										<td>{$row->nombre}</td>
+										<td>$link</td>
+									</tr>";
         }       
         $tabla_html .= "</table>";
         return $tabla_html;
@@ -346,27 +362,29 @@ class Maestro extends Controller {
 
     function procesar_estructura() { 
         $id_estructura      = $this->input->post('id_estructura') ;
-        $id_ubicacion       = $this->input->post('id_ubicacion') ;
+		$cod_uni_admi	    = $this->input->post('cod_uni_admi') ; 
+		$cod_uni_adsc	    = $this->input->post('cod_uni_adsc') ; 
         $nombre_estructura  = strtoupper(($this->input->post('nombre_estructura'))) ;       
         $esta = $this->maestro_model->estructura_duplicada();
-        #if($esta)
-        #	echo 'SI ta';
-        #else 
-       # 	echo 'No TA';        
+		#var_dump($esta); exit;
         if (!$esta and $id_estructura == '' )  { 
             $id_estructura = $this->maestro_model->agregar_estructura() ;
             register_log('Maestro',"Se agregó una nueva estructura con el nombre \"$nombre_estructura\" bajo el ID => $id_estructura",1);          
-            $str    = dialog('Información','¡Estructura Agregada Satisfactoriamente!',2);               
+            $str    = dialog('Inserción','¡Estructura Agregada Satisfactoriamente!',2);               
             $str    .= "<script>$('#id_estructura').val('$id_estructura')</script>\n";                     
         }           
         elseif (!$esta and $id_estructura != '') {                        
-            $this->maestro_model->update_record('estructura',array('id_ubicacion'=>$id_ubicacion,'nombre'=>$nombre_estructura),array('id' => $id_estructura));
-            register_log('Maestro',"Se modificó la estructura \"$nombre_estructura\" bajo el ID => $id_estructura",1);          
+            $this->maestro_model->update_record('estructura',array('cod_uni_admi'=>$cod_uni_admi,'cod_uni_adsc'=>$cod_uni_adsc,'nombre'=>$nombre_estructura),array('id' => $id_estructura));
+            register_log('Actualización',"Se actualizó la estructura \"$nombre_estructura\" bajo el ID => $id_estructura",1);          
             $str    = dialog('Información','¡Estructura Modificada Satisfactoriamente!',2);                     
         }       
         elseif ($esta and $id_estructura == '') {
-            register_log('Maestro',"Se intentó agregar una estructura con el nombre \"$nombre_estructura\" al parecer ya existe",1);
-            $str    = dialog('Información',"¡Error, La estructura \"$nombre_estructura\" ya existe con el mismo nombre y en la misma ubicación!",1); 
+            register_log('Error',"Se intentó agregar una estructura con el nombre \"$nombre_estructura\" al parecer ya existe",1);
+            $str    = dialog('Error',"¡Error, La estructura \"$nombre_estructura\" ya existe con el mismo nombre y en la misma ubicación!",1); 
+        }
+		elseif ($esta and $id_estructura != '') {
+            register_log('Error',"Se intentó modificar una estructura con el mismo nombre \"$nombre_estructura\"",1);
+            $str    = dialog('Error',"¡Error, La estructura \"$nombre_estructura\" ya existe con el mismo nombre!",1); 
         }
         echo $str;
     }	

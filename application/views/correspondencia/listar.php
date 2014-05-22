@@ -5,7 +5,7 @@
 <div id="form_container">
 <form id="form1" class="appnitro" method="post" action="" style="width:">
 	<div class="form_description">
- 		<h2>Listar Correspondencias</h2> 
+ 		<h2>Listar Correspondencias <img src="<?= base_url() ?>/public/images/icons/application_view_list.png" class="icon_accion" id="img_accion"></h2> 
       <p>Lista de las correspondencias registradas</p>	  
 	</div>
 	<?php echo $this->table->generate($results); ?>

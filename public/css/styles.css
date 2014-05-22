@@ -21,6 +21,15 @@ body{font-size: 12px;}
 color:#FFFFFF;
 }
 
+.icon_accion {
+    height: 32px;
+    margin-left: 10px;
+    margin-right: -1px;
+    top: -1px;
+    vertical-align: middle;
+    width: 32px;
+}
+
 .imagen_inicio {
 display:block;
 margin:0 auto;
@@ -89,7 +98,7 @@ margin-right: -1px;
 	text-decoration:none;
 }
 .txt_barra {
-	font-size: 10px;
+	font-size: 12px;
 }
 /**** Para visualizar quien efectuo un registro ****/
 .bg_amarillo {
@@ -501,6 +510,17 @@ input.file
 	margin:0;
 	padding:2px 0;
 }
+input.text_gris {
+	background: url("../images/shadow.gif") repeat-x scroll center top #E2E2E2;
+    border-bottom: 1px solid #DDDDDD;
+    border-right: 1px solid #C3C3C3;
+    border-top: 1px solid #7C7C7C;
+    color: #333333;
+    font-size: 100%;
+    margin: 0;
+    padding: 2px 0;
+    width: 92%;
+}
 
 textarea.textarea
 {
@@ -635,7 +655,6 @@ textarea.medium
 textarea.large
 {
 	height:20em;
-	width:
 }
 
 textarea.custom_large
@@ -1094,8 +1113,6 @@ legend {
 	font-weight:bold;
 	border: dotted 1px #3B5998;
 	border-radius: 6px;
-	//-webkit-border-radius: 6px;
-	//-moz-border-radius: 6px;
 	padding: 4px;
 	
 	/*

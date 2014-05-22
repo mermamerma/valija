@@ -38,37 +38,11 @@ class Valija extends Controller {
     	// Para cargar la data a editar
 		if ($id) {			
 			$valija = $this->valija_model->get_valija_aperturada();
-			if ($valija) {
-				$script = "
-				<script>
-				$('#id').val('{$valija->id}');
-				$('#id_mision').val('{$valija->id_mision}');
-				$('#mision').val('{$valija->mision}');
-				$('#indice_valija').val('{$valija->indice_valija}');
-				$('#id_tipo_valija').val('{$valija->id_tipo_valija}');
-				$('#id_estatus_valija').val('{$valija->id_estatus_valija}');
-				$('#fecha_anuncio').val('{$valija->fecha_anuncio}');
-				$('#fecha_recibido').val('{$valija->fecha_recibido}');
-				$('#presilla').val('{$valija->presilla}');
-				$('#peso').val('{$valija->peso}');
-				$('#num_candado').val('{$valija->num_candado}');
-				$('#id_courrier').val('{$valija->id_courrier}');
-				$('#num_guia').val('{$valija->num_guia}');
-				$('#id_tipo_contenido').val('{$valija->id_tipo_contenido}');
-				$('#num_cajas').val('{$valija->num_cajas}');
-				$('#num_sacos').val('{$valija->num_sacos}');
-				$('#num_piezas').val('{$valija->num_piezas}');
-				$('#observaciones').val('{$valija->observaciones}');
-				$('#meta_data').show();
-				$('#usuario').html('{$valija->usuario}');
-				$('#fecha_c').html('{$valija->easydate_c}');
-				$('#fecha_a').html('{$valija->easydate_a}');
-				$('#fecha_c').attr('title', '".fecha_legible($valija->creacion)."');	
-				$('#fecha_a').attr('title', '".fecha_legible($valija->actualizacion)."');
-				mostrar_fechas(); 
-				</script>";
+			if ($valija) {	
 				$data['momento'] = 'Editar Valija Aperturada';
-				$data['script'] = $script; 
+				$data['valija'] = $valija ;
+				$data['script'] = $this->load->view('valija/set_aperturar', $data, TRUE);
+				#$data['script'] = $script; 
 				register_log('Valija',"Acceso al formulario para editar una valija perturada con el ID => $id");
 			}
 			else 
@@ -296,7 +270,7 @@ class Valija extends Controller {
     	#$this->pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH_PORTRAIT);    	    	
         $this->pdf->AddPage('L');
         #$html  = "<h3>Reporte de Valija Registradas en Taquillas</h3>" ;
-        $html  = "<h3>Reporte XXX</h3>" ;
+        $html  = "<br/><h3>Reporte XXX</h3>" ;
 		/*$html .= "<table border="1" cellpadding="2" cellspacing="2" nobr="true">
   				 	<tr>
     				<td>Usuario</td>

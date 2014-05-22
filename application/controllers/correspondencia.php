@@ -370,6 +370,103 @@ class Correspondencia extends Controller {
 		$this->pdf->writeHTML("<p><h2>Total Registros: $total_rows</h2></p>", true, false, false, false, '');			
 		$this->pdf->Output('reporte.pdf', 'I');		
     }
+	
+	function diario_destinatario() {
+		$this->load->library('parser');
+		register_log('Consulta',"Acceso a Diario por Destinatario");  		
+		$data ['main_content'] 		= 'correspondencia/diario'; 
+		$data ['diario']	= $this->correspondencia_model->get_diario_destinatario();
+		$data['tabla']		= $this->parser->parse('correspondencia/diario_destinatario', $data, TRUE);
+		$data['modo']		= 'Destinatario' ;
+		$data['leyenda']		= 'Lista del total correspondencias registradas a cada Destinatario';
+		$this->load->view('sistema/template',$data); 
+	}
+	
+	function buscar_diario_destinatario() {
+		$this->load->library('parser');
+		register_log('Consulta',"Acceso a Diario por Destinatario Buscando por Fechas de Ingreso");  				
+		$data ['diario']	= $this->correspondencia_model->get_diario_destinatario();		
+		$tabla		= $this->parser->parse('correspondencia/diario_destinatario', $data, TRUE);
+		echo $tabla ;
+	}
+	
+	function pdf_diario_destinatario () {
+		$data ['diario']	= $this->correspondencia_model->get_diario_destinatario();		
+		register_log('Generación',"Se generó PDF del total correspondencia registradas por Destinatario",1); 
+		$fecha = date('d-m-Y') ;
+		$fecha_ingreso_desde = dateDB($this->input->post('fecha_ingreso_desde') );
+		$fecha_ingreso_hasta = dateDB($this->input->post('fecha_ingreso_hasta') );	
+		$f_ingreso_desde = $this->input->post('fecha_ingreso_desde') ;
+		$f_ingreso_hasta = $this->input->post('fecha_ingreso_hasta') ;	
+		
+		$titulo = 'CORRESPONDENCIAS REGISTRADAS POR DESTINATARIO' ; 		
+		if ($fecha_ingreso_desde == '' AND $fecha_ingreso_hasta == '') 
+			$titulo = $titulo.' EL '.$fecha ;
+		elseif ($fecha_ingreso_desde != '' AND $fecha_ingreso_hasta != '')
+			$titulo = "$titulo DESDE $f_ingreso_desde HASTA EL $f_ingreso_hasta " ;
+		elseif ($fecha_ingreso_desde == '' AND $fecha_ingreso_hasta != '') 
+			$titulo = "$titulo HASTA EL $f_ingreso_hasta " ;
+		elseif ($fecha_ingreso_desde != '' AND $fecha_ingreso_hasta == '') 
+			$titulo = "$titulo DESDE EL $f_ingreso_desde " ;
+		$data ['titulo']	= $titulo ;
+		
+		$tabla		= $this->load->view('correspondencia/pdf_diario_destinatario', $data, TRUE);
+		$this->load->library('pdf');    	
+    	$this->pdf->SetFontSize(7);
+        $this->pdf->AddPage('P','LEGAL'); 		
+		$this->pdf->setFooterText('Relizado por: '.$this->session->userdata('usuario').' el '.date('d-m-Y').' a las '.date('h:i A'));   
+		$this->pdf->writeHTML($tabla, true, false, false, false, ''); 		
+		$this->pdf->Output('reporte.pdf', 'I');	
+	}
+	
+	function diario_mision() {
+		$this->load->library('parser');
+		register_log('Consulta',"Acceso a Diario por Misión");  		
+		$data ['main_content'] 		= 'correspondencia/diario'; 
+		$data ['diario']	= $this->correspondencia_model->get_diario_mision();
+		$data['leyenda']		= 'Lista del total correspondencias enviadas por cada Misión ';
+		$data['tabla']		= $this->parser->parse('correspondencia/diario_mision', $data, TRUE); 
+		$data['modo']		= 'Misión' ;				
+		$this->load->view('sistema/template',$data); 
+	}
+	
+	function buscar_diario_mision() {
+		$this->load->library('parser');
+		register_log('Consulta',"Acceso a Diario por Misión Buscando por Fechas de Ingreso");  				
+		$data ['diario']	= $this->correspondencia_model->get_diario_mision();		
+		$tabla		= $this->parser->parse('correspondencia/diario_mision', $data, TRUE);
+		echo $tabla ;
+	}
+	
+	function pdf_diario_mision () {
+		$data ['diario']	= $this->correspondencia_model->get_diario_mision();		
+		register_log('Generación',"Se generó PDF del total correspondencia registradas por Misión",1); 
+		$fecha = date('d-m-Y') ;
+		$fecha_ingreso_desde = dateDB($this->input->post('fecha_ingreso_desde') );
+		$fecha_ingreso_hasta = dateDB($this->input->post('fecha_ingreso_hasta') );	
+		$f_ingreso_desde = $this->input->post('fecha_ingreso_desde') ;
+		$f_ingreso_hasta = $this->input->post('fecha_ingreso_hasta') ;
+		
+		$titulo = 'CORRESPONDENCIAS REGISTRADAS POR MISION' ; 		
+		if ($fecha_ingreso_desde == '' AND $fecha_ingreso_hasta == '') 
+			$titulo = $titulo.' EL '.$fecha ;
+		elseif ($fecha_ingreso_desde != '' AND $fecha_ingreso_hasta != '')
+			$titulo = "$titulo DESDE $f_ingreso_desde HASTA EL $f_ingreso_hasta " ;
+		elseif ($fecha_ingreso_desde == '' AND $fecha_ingreso_hasta != '') 
+			$titulo = "$titulo HASTA EL $f_ingreso_hasta " ;
+		elseif ($fecha_ingreso_desde != '' AND $fecha_ingreso_hasta == '') 
+			$titulo = "$titulo DESDE EL $f_ingreso_desde " ;
+		$data ['titulo']	= $titulo ;
+		
+		$tabla		= $this->load->view('correspondencia/pdf_diario_mision', $data, TRUE);
+		$this->load->library('pdf');    	
+    	$this->pdf->SetFontSize(7);
+        $this->pdf->AddPage('P','LEGAL'); 		
+		$this->pdf->setFooterText('Relizado por: '.$this->session->userdata('usuario').' el '.date('d-m-Y').' a las '.date('h:i A'));   
+		$this->pdf->writeHTML($tabla, true, false, false, false, ''); 		
+		$this->pdf->Output('reporte.pdf', 'I');	
+	}
+	
 }
 
 

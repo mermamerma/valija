@@ -50,6 +50,20 @@ $db['default']['password'] = "v@l1j4!!mppr3#db#";
 $db['default']['database'] = "valija";
 $db['default']['dbdriver'] = "mysql";
 */
+
+$db['sigefirrhh']['hostname'] = '172.27.38.46';
+$db['sigefirrhh']['username'] = 'sivaldi_sigefirrhh';
+$db['sigefirrhh']['password'] = 'sivaldi_sigefirrhh';
+$db['sigefirrhh']['database'] = 'sigefirrhh';
+$db['sigefirrhh']['dbdriver'] = 'postgre';
+$db['sigefirrhh']['dbprefix'] = '';
+$db['sigefirrhh']['pconnect'] = TRUE;
+$db['sigefirrhh']['db_debug'] = TRUE;
+$db['sigefirrhh']['cache_on'] = FALSE;
+$db['sigefirrhh']['cachedir'] = '';
+$db['sigefirrhh']['char_set'] = 'utf8';
+$db['sigefirrhh']['dbcollat'] = 'utf8_general_ci';
+
 $db['default']['dbprefix'] = "";
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;

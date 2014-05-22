@@ -123,7 +123,7 @@ class Valija_model extends Model {
 			valijas.fecha_actualizacion,
 			tipo_valija.nombre AS tipo,
 			estatus_valija.nombre AS estatus,
-			courriers.nombre AS courrier,http://www.noticias24.com/index.html
+			courriers.nombre AS courrier,
 			usuarios.usuario AS usuario,
 			tipo_mision.nombre AS nombre_mision,
 			ciudades.nombre_ciudad,

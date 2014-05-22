@@ -35,7 +35,7 @@ class Log extends Controller {
 		$this->load->library('table');
 				
 		$this->table->set_heading('Id','Usuario', 'IP', 'URL','Modulo','Acción', 'Descripción', 'Fecha');	
-		$tmpl = array ('table_open'=>'<table border="0" width="100%" cellpadding="0" cellspacing="0"   class="display" id="datatable">');
+		$tmpl = array ('table_open'=>'<table   cellspacing="1" id="datatable" class="display" id="datatable">');
 		$this->table->set_template($tmpl); 	
 
 		register_log('Consulta',"Acceso a la Bitácora General");  

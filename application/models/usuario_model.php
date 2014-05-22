@@ -10,7 +10,9 @@
 class Usuario_model extends Model {
 
 	function __construct() {
-		parent::Model();
+		parent::Model();		
+		$this->load->library('adldap');
+		
 	}
 	
 	function validar_en_sistema($usuario){
@@ -34,8 +36,14 @@ class Usuario_model extends Model {
 		return true;		
 	}
     
+	function existe_en_ldap($usuario) {
+		
+		$flag = $this->adldap->user_exist($usuario);
+		return $flag;
+	}
+	
 	function get_usuario($usuario) {
-		$this->db->select("usuarios.id, usuarios.id_acceso, usuarios.usuario, usuarios.id_coordinacion, nombres, apellidos, 
+		$this->db->select("usuarios.id, usuarios.id_acceso, usuarios.usuario, nombres, apellidos, 
 							accesos.nombre as 'nombre_acceso', accesos.acceso");
 		$this->db->join('accesos', 'accesos.id = usuarios.id_acceso', 'left');
 		$usuario = $this->db->get_where('usuarios', array('usuario' => $usuario, 'id_estatus' => 1), 1);
@@ -55,7 +63,7 @@ class Usuario_model extends Model {
 	}
 	
 	function get_usuario_by_id($id) {
-		$this->db->select("id, id_estatus, id_acceso, id_coordinacion, usuario, nombres, apellidos"); 
+		$this->db->select("id, id_estatus, id_personal, cedula, id_acceso, usuario"); 
 							
 		$usuario = $this->db->get_where('usuarios', array('id' => $id), 1);
 		$num_rows = $usuario->num_rows();
@@ -71,18 +79,14 @@ class Usuario_model extends Model {
 		SELECT
 		usuarios.id,
 		usuarios.usuario,
-		usuarios.nombres,
-		usuarios.apellidos,
-		uc.usuario as 'creador',
-		coordinaciones.nombre as 'coordinacion',
 		accesos.nombre as 'acceso',
 		IF(usuarios.id_estatus = 1,'Activo','Inactivo') as 'estatus',
 		IF(usuarios.id_estatus = 1,'good_bit.png','bad_bit.png') as 'img'
 		FROM
-		usuarios
-		INNER Join coordinaciones ON usuarios.id_coordinacion = coordinaciones.id
-		LEFT Join accesos 				ON usuarios.id_acceso = accesos.id
-		INNER Join usuarios uc 		ON uc.id = usuarios.id_creador
+		usuarios			
+		LEFT Join accesos			ON usuarios.id_acceso = accesos.id
+		LEFT Join usuarios uc 		ON uc.id = usuarios.id_creador
+		WHERE usuarios.usuario != 'admin'
 		ORDER BY usuarios.usuario ASC
 		");
 		$data = $query->result_array();
@@ -114,14 +118,14 @@ class Usuario_model extends Model {
 	
 	function agregar() {
 		$row = array(
-		'usuario'	 		=> strtolower(trim($this->input->post('usuario'))),
-		'nombres'		 	=> ucfirst(trim($this->input->post('nombres'))),
-		'apellidos'		 	=> ucfirst(trim($this->input->post('apellidos'))),
-		'id_coordinacion'		=> $this->input->post('id_coordinacion'),
-		'id_acceso'			=> $this->input->post('id_acceso'),
+		'usuario'				=> to_minuscula(trim($this->input->post('usuario'))),
+		'cedula'				=> (int) $this->input->post('cedula'),		  
+		'id_personal'			=> (int) $this->input->post('id_personal'),
+		'id_estatus'			=> (int) $this->input->post('id_estatus'),
+		'id_acceso'				=> $this->input->post('id_acceso'),
 		'id_creador' 			=> $this->session->userdata('id'),
 		'fecha_creacion' 		=> now_mysql_datetime(),
-		'fecha_actualizacion'           => now_mysql_datetime()
+		'fecha_actualizacion'   => now_mysql_datetime()
 		);	
 		$insert = $this->db->insert('usuarios', $row);	
 		return $this->db->insert_id();
@@ -129,12 +133,9 @@ class Usuario_model extends Model {
 	
 	function editar() {
 		$usuario = array(
-		'usuario'	 		=> $this->input->post('usuario'),
-		'id_estatus'		=> $this->input->post('id_estatus'),
-		'nombres' 			=> $this->input->post('nombres'),
-		'apellidos' 		=> $this->input->post('apellidos'),	
-		'id_coordinacion'	=> $this->input->post('id_coordinacion'),
+		'usuario'	 		=> $this->input->post('usuario'),		
 		'id_acceso'			=> $this->input->post('id_acceso'),
+		'id_estatus'		=> $this->input->post('id_estatus'),
 		'fecha_actualizacion'	 => now_mysql_datetime()
 		);
 		$this->db->where('id', $this->input->post('id'));
@@ -151,7 +152,7 @@ class Usuario_model extends Model {
 		return false;
 	}
 
-        function listar_usaurios_obj() {
+    function listar_usaurios_obj() {
 		$query = $this->db->query("
 		SELECT
 		usuarios.id,
@@ -173,6 +174,20 @@ class Usuario_model extends Model {
 		ORDER BY usuarios.usuario ASC
 		");
 		return $query ;		
+	}
+	
+	function get_personal($cedula) {
+		$this->sigefirrhh = $this->load->database('sigefirrhh',TRUE);					
+		
+		$this->sigefirrhh->select("*");  	
+		$this->sigefirrhh->from('personal');	
+		$this->sigefirrhh->where('cedula = ',$cedula ) ;		
+		$query = $this->sigefirrhh->get();		
+		//$row = $this->sigefirrhh->query($sql);
+		if ($query->num_rows()>0)			
+			return $query->row();
+		else
+			return FALSE;
 	}
         
 }

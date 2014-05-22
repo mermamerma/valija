@@ -32,7 +32,7 @@ function date_iso_to_latin($date,$input = '-', $output = '/'){
 * @return   string
 */  
 
-function date_latin_to_iso($date,$input = '/', $output = '-'){
+function date_latin_to_iso($date,$input = '-', $output = '-'){
 	if ($date != '') 
 		return  implode($output, array_reverse(explode($input,$date)));
 	else 
@@ -41,6 +41,10 @@ function date_latin_to_iso($date,$input = '/', $output = '-'){
 }
 
 function now_mysql_date(){
+	return  date("Y-m-d");		
+}
+
+function now_db_date(){
 	return  date("Y-m-d");		
 }
 
@@ -113,6 +117,19 @@ function dateDe($fecha){
 }
 
 function datePg($fecha){
+	if ($fecha!=""){
+	 	$arrFecha=explode("-",$fecha);		 	
+	 	$anho=$arrFecha[2];
+	 	$mes=$arrFecha[1];
+	 	$dia=$arrFecha[0];
+	 	$fecha=$anho."-".$mes."-".$dia;
+	 	return $fecha;
+	}
+	else
+		return "";	
+}
+
+function dateDB($fecha){
 	if ($fecha!=""){
 	 	$arrFecha=explode("-",$fecha);		 	
 	 	$anho=$arrFecha[2];

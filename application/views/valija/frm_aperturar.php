@@ -5,7 +5,7 @@
 <div id="form_container">
 <form id="form1" class="appnitro" method="post" action="" style="width:">
   <div class="form_description">
-      <h2><?=$momento;?></h2> 
+      <h2><?=$momento;?> <img src="<?= base_url() ?>/public/images/icons/box_down.png" class="icon_accion" id="img_accion"></h2> 
       <p>Formulario</p>
 	<?=form_hidden('id'); ?>	  
     </div>

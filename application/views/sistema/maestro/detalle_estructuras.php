@@ -3,7 +3,7 @@
 <div id="form_container">
 	<form id="form1" class="appnitro" method="post" action="">
 		<div class="form_description">
-			<h2>Maestro</h2> 
+			<h2>Maestro&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?= base_url() ?>/public/images/icons/chart_organisation.png" class="icon_accion" id="img_accion"></h2> 
 			<p>Lista de Estructuras </p>
 		</div>	
 		<div id="tabla_pintada">

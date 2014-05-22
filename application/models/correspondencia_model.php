@@ -251,5 +251,72 @@ class Correspondencia_model extends Model {
 		$update = $this->db->update('correspondencias', array('estatus' => 0));
 		return $this->db->affected_rows();
 	}
-	       
+	
+	function get_diario_destinatario() {
+		$emtyArray = array();
+		$fecha = now_db_date() ;
+		$fecha_ingreso_desde = dateDB($this->input->post('fecha_ingreso_desde') );
+		$fecha_ingreso_hasta = dateDB($this->input->post('fecha_ingreso_hasta') );	
+		
+		$this->db->select("estructura.nombre as destinatario,  COUNT(correspondencias.id_destinatario) as cantidad", FALSE);  	
+		$this->db->from('correspondencias');	
+		$this->db->join('estructura', 'correspondencias.id_destinatario = estructura.id', 'inner');			
+		
+		
+		($fecha_ingreso_desde != '') ? $this->db->where('correspondencias.fecha_ingreso >=', $fecha_ingreso_desde) : null; 
+		($fecha_ingreso_hasta != '') ? $this->db->where('correspondencias.fecha_ingreso <=', $fecha_ingreso_hasta) : null; 
+		($fecha_ingreso_desde == '' AND $fecha_ingreso_hasta == '') ? $this->db->where('correspondencias.fecha_ingreso = ',$fecha ) : null; 		
+		
+		$this->db->group_by("correspondencias.id_mision"); 	
+		$query = $this->db->get();		
+		$num_rows = $query->num_rows();
+		if ($num_rows > 0 ) 
+			return $query->result_array() ;			
+		else 
+			return $emtyArray;
+
+	}
+	
+	function get_diario_mision() {
+		$emty = array();
+		$fecha = now_db_date() ;
+		$fecha_ingreso_desde = dateDB($this->input->post('fecha_ingreso_desde') );
+		$fecha_ingreso_hasta = dateDB($this->input->post('fecha_ingreso_hasta') );	
+		
+		$this->db->select("CONCAT(tipo_mision.nombre,' EN ',ciudades.nombre_ciudad,', ',paises.nombre_pais) as mision,
+					COUNT(correspondencias.id_mision) as cantidad", FALSE); 
+		$this->db->from('correspondencias'); 
+		$this->db->join('misiones',		'correspondencias.id_mision = misiones.id_mision', 'left');	
+		$this->db->join('ciudades',		'misiones.id_ciudad = ciudades.id_ciudad', 'left'); 
+		$this->db->join('paises',		'ciudades.id_pais = paises.id_pais', 'left'); 
+		$this->db->join('tipo_mision', 'misiones.id_tipo_mision = tipo_mision.id', 'left'); 
+		($fecha_ingreso_desde != '') ? $this->db->where('correspondencias.fecha_ingreso >=', $fecha_ingreso_desde) : null; 
+		($fecha_ingreso_hasta != '') ? $this->db->where('correspondencias.fecha_ingreso <=', $fecha_ingreso_hasta) : null; 
+		($fecha_ingreso_desde == '' AND $fecha_ingreso_hasta == '') ? $this->db->where('correspondencias.fecha_ingreso = ',$fecha ) : null;
+		$this->db->group_by("correspondencias.id_mision"); 	
+		$query = $this->db->get();		
+		$num_rows = $query->num_rows();
+		if ($num_rows > 0 ) 
+			return $query->result_array() ;			
+		else 
+			return $emty;
+
+	}
+	
+	function count_hoy(){
+		$emtyArray = array();
+		$fecha = now_db_date() ;
+		#$fecha = '2014-05-22' ;
+		$fecha_ingreso_desde = dateDB($this->input->post('fecha_ingreso_desde') );
+		$fecha_ingreso_hasta = dateDB($this->input->post('fecha_ingreso_hasta') );	
+		
+		$this->db->select("COUNT(correspondencias.id_destinatario) as cantidad", FALSE);  	
+		$this->db->from('correspondencias');	
+		$this->db->where('correspondencias.fecha_ingreso = ',$fecha ) ;		
+		$query = $this->db->get();		
+		$num_rows = $query->num_rows();
+		$row = $query->row() ;
+		return $row->cantidad;
+		
+	}
 }

@@ -1004,6 +1004,35 @@ class Adldap {
         return ($entries);
     }
     
+		/**
+    * Find a User en LDAP System
+    * @author Jesús Rodríguez Doe <jesus.rodriguez937@mppre.gob.ve>
+    * @param string $username The username to query
+    * @param array $fields Array of parameters to query    
+    * @return bool If exist TRUE
+    */
+    public function user_exist($username,$fields=NULL){
+		
+        if ($username===NULL){ return (false); }
+        if (!$this->_bind){ return (false); }
+
+        $filter="uid=".$username;
+        
+        
+		if ($fields ===  NULL) {
+			$fields = array("samaccountname","mail","memberof","department","displayname","telephonenumber","primarygroupid","objectsid") ;
+		}
+
+        
+        $result = @ldap_search($this->_conn, $this->_base_dn, $filter, $fields); 
+		if (ldap_count_entries($this->_conn, $result) > 0) 
+			return TRUE;
+		
+		else 
+			return FALSE; ;     
+    }
+	
+	
     /**
     * Determine if a user is in a specific group
     * 

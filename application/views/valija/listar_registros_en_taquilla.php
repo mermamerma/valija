@@ -5,7 +5,7 @@
 <div id="form_container">
 	<form id="form1" class="appnitro" method="post" action="" >
 		<div class="form_description">
-			<h2>Listar / Buscar Registros en Taquilla</h2> 
+			<h2>Listar / Buscar Registros en Taquilla <img src="<?= base_url() ?>/public/images/icons/application_view_list.png" class="icon_accion" id="img_accion"></h2> 
 		</div>
 		<fieldset>
 			<legend>Valijas Registradas en Taquilla</legend>

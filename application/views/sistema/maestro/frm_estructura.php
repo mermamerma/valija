@@ -5,7 +5,7 @@
 <div id="form_container">
 <form id="form1" class="appnitro" method="post" action="" style="width:">
 <div class="form_description">
-<h2><?=$accion;?></h2> 
+<h2><?=$accion;?> <img src="<?= base_url() ?>/public/images/icons/chart_organisation.png" class="icon_accion" id="img_accion"></h2> 
 <p>Formulario</p>
 <?=form_hidden('id_estructura'); ?>	  
 </div>
@@ -16,21 +16,30 @@
 		<td>
 		<table width="657" border="0">
         	<tr>
+        	  <td>
+				<li>
+				<label class="description" for="element_2">Código Unidad Administrativa <span class="required">(*)</span></label>
+				<?= form_input('cod_uni_admi','','class="element text extra_large"')?>
+				</li>
+
+			  </td>
+      	  </tr>
+        	<tr>
+        	  <td>
+			    <li>
+				<label class="description" for="element_2">Código Unidad Adscripción <span class="required">(*)</span></label>
+				<?= form_input('cod_uni_adsc','','class="element text extra_large"')?>
+				</li>
+			  </td>
+      	  </tr>
+        	<tr>
             <td>
-			<li>
-            <label class="description" for="element_2">Nombre de la estructura <span class="required">(*)</span></label>
-	        <?= form_input('nombre_estructura','','class="element text extra_large"')?>
-            </li>
+				<li>
+				<label class="description" for="element_2">Nombre de la Estructura <span class="required">(*)</span></label>
+				<?= form_input('nombre_estructura','','class="element text extra_large"')?>
+				</li>
 			</td>
           	</tr>
-          	<tr>
-            <td>
-			<li>
-	        <label class="description" for="element_2">Ubicación <span class="required">(*)</span></label>
-	        	<?= form_dropdown_db('id_ubicacion', 'ubicaciones');?>
-         	</li>
-			</td>
-			</tr>
         </table>
 		</td>
 		</tr>	     

@@ -184,9 +184,9 @@ class Maestro_model extends Model {
 	}
 
 	function get_estructuras () {
-		$this->db->select('estructura.id as id_estructura,estructura.id_ubicacion as id_ubicacion,estructura.nombre as estructura,ubicaciones.nombre as ubicacion'); 
+		$this->db->select('*'); 
 		$this->db->from('estructura');
-  		$this->db->join('ubicaciones', 	'ubicaciones.id = estructura.id_ubicacion', 'inner');
+		$this->db->where('estatus = ','A');  		
   		$query = $this->db->get(); 		
 		$data = $query->result_object();
 		return $data ; 
@@ -203,7 +203,8 @@ class Maestro_model extends Model {
 	function estructura_duplicada() {		
 		$nombre_estructura	= strtoupper(trim($this->input->post('nombre_estructura'))) ;
 		$id_ubicacion 		= $this->input->post('id_ubicacion');		
-		$query = $this->db->get_where('estructura', array('nombre' => $nombre_estructura, 'id_ubicacion' => $id_ubicacion));
+		$query = $this->db->get_where('estructura', array('nombre' => $nombre_estructura));
+		#$query = $this->db->get_where('estructura', array('nombre' => $nombre_estructura, 'id_ubicacion' => $id_ubicacion));
 		#die($this->db->last_query());			
 		if ($query->num_rows() >= 1) {
 			return true; 

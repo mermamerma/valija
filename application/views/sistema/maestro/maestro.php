@@ -5,7 +5,7 @@
 <div id="form_container">
 	<form id="form1" class="appnitro" method="post" action="" style="width:">
 		<div class="form_description">
-			<h2>Maestros Principales</h2> 
+			<h2>Maestros Principales <img src="<?= base_url() ?>/public/images/icons/table.png" class="icon_accion" id="img_accion"></h2> 
 			<p>Lista de Tablas</p>
 		</div>		
 		<br />

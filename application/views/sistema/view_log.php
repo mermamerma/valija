@@ -5,7 +5,7 @@
 <div id="form_container">
 <form id="form1" class="appnitro" method="post" action="" style="width:">
 	<div class="form_description">
- 		<h2>Bitácora del Sistema</h2> 
+ 		<h2>Bitácora del Sistema <img src="<?= base_url() ?>/public/images/icons/bug.png" class="icon_accion" id="img_accion"></h2> 
       <p>Lista de las actividades diarias en el sistema</p>	  
 	</div>
 	<?php echo $this->table->generate($results); ?>
@@ -18,15 +18,12 @@
 <script>
 $(function(){
 		$('#datatable').dataTable({
-			"aaSorting": [[ 0, "desc" ]],
-			"bRetrieve" :true,
-			"bPaginate": false,
-			"bJQueryUI": true,
-			"sPaginationType": "full_numbers",
-			"iDisplayLength": 10,
-			"sScrollX": "80%",
-			"bDestroy": true,	
-			"bScrollCollapse": true
+		"bAutoWidth":false,
+		"bJQueryUI": true,
+		//"bProcessing": true,
+		"sPaginationType": "full_numbers",
+		"iDisplayLength": 15,
+		"bScrollCollapse": true
 		});
 });
 </script>

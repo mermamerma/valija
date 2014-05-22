@@ -12,37 +12,12 @@
 	<table width="" border="0">
   <tr>
     <td>
-		<a><img src="<?=base_url();?>/public/images/note.png" alt="Notas Registradas" class="icons_barra"/ title="Notas Registradas"></a>
-		<a class="txt_barra">Notas Registradas</a></td>
-    <td>
-		<a><img src="<?=base_url();?>/public/images/email.png" alt="Notas Registradas" class="icons_barra"/ title="Correspondencias Registradas"></a>
-		<a class="txt_barra">Correspondencias Registradas</a></td>
-    <td>
-		<a><img src="<?=base_url();?>/public/images/volantes_add.png" alt="Notas Registradas" class="icons_barra"/></a>
-		<a class="txt_barra">Volantes Emitidos</a>
-	</td>
-    <td>
-		<a><img src="<?=base_url();?>/public/images/courriers.png" alt="Notas Registradas" class="icons_barra"/></a>
-		<a class="txt_barra">Courriers Registrados</a>
-	</td>
-    <td>
-		<a><img src="<?=base_url();?>/public/images/especiales.png" alt="Notas Registradas" class="icons_barra"/></a>
-		<a class="txt_barra">Valijas Especiales</a>
-	</td>
-    <td>
-		<a><img src="<?=base_url();?>/public/images/package.png" alt="Notas Registradas" class="icons_barra"/></a>
-		<a class="txt_barra">Valijas Normales</a>
-	</td>
-  </tr>
+		<a><img src="<?=base_url();?>/public/images/email.png" alt="Notas Registradas" class="icons_barra" title="Correspondencias Registradas"></a>
+		<a class="txt_barra">Correspondencias Registradas (<?=$cant_corresp?>)</a></td>
+    </tr>
   <tr>
-    <td></td>
     <td>&nbsp;&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-  </tr>
+    </tr>
 </table>
 	</div>
     <br />

@@ -5,7 +5,7 @@
 <div id="form_container">
 <form id="form1" class="appnitro" method="post" action="" >
     <div class="form_description">
-      <h2>Buscar Valija Registrada en Taquilla</h2> 
+      <h2>Buscar Valija Registrada en Taquilla <img src="<?= base_url() ?>/public/images/icons/application_form_magnify.png" class="icon_accion" id="img_accion"></h2> 
       <p>Formulario      </p>	  
     </div>
     <fieldset>

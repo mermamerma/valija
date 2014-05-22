@@ -5,7 +5,7 @@
 <div id="form_container">
 <form id="form1" class="appnitro" method="post" action="" style="width:">
 	<div class="form_description">
- 		<h2>Bitácora del Usuario <?=$usuario->usuario?></h2> 
+ 		<h2>Bitácora del Usuario <?=$usuario->usuario?>  <img src="<?= base_url() ?>/public/images/icons/bug_link.png" class="icon_accion" id="img_accion"></h2> 
       <p>Lista de las actividades diarias en el sistema</p>	  
 	</div>
 	<?php echo $this->table->generate($results); ?>

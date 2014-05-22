@@ -1,5 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+function to_titulo($input) {
+	$input = to_minuscula($input);
+	return ucfirst($input,'UTF-8') ;
+}
+
 function to_mayuscula($input) {
 	return mb_strtoupper($input,'UTF-8') ;
 }

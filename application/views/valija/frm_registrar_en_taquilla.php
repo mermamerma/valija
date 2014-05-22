@@ -76,7 +76,7 @@ function cambio_tipo_registro ( ) {
 <div id="form_container">
 <form id="form1" class="appnitro" method="post" action="" >
     <div class="form_description">
-      <h2>Registrar Valija en Taquilla</h2> 
+      <h2>Registrar Valija en Taquilla <img src="<?= base_url() ?>/public/images/icons/briefcase.png" class="icon_accion" id="img_accion"></h2> 
       <p>Formulario</p>	  
     </div>
     <fieldset>

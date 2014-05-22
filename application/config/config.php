@@ -18,8 +18,8 @@ $config['fire_php_enabled'] = true;
 $config['base_url']	= "http://172.27.38.66/valija";
 #$config['base_url']	= "http://172.31.1.167/valija";
 
-
-$config['system_name']	= "Sistema de Valija Diplomática";
+$config['system_name']	= "Sivaldi";
+#$config['system_name']	= "Sistema de Valija Diplomática";
 
 /*
 |--------------------------------------------------------------------------
