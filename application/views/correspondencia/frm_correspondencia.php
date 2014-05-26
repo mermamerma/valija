@@ -151,12 +151,13 @@
 	&nbsp;&nbsp;&nbsp;
 	<div id="cancelar" class="boton" onclick="javacript:window.location.href = '<?=base_url()?>';">Cancelar</div>
 	&nbsp;&nbsp;&nbsp;
-	<div id="nuevo" class="boton" onclick="javacript:restablecer();">Nuevo</div>
 </form>
 </div>
 <?=ajaxifica('form1','correspondencia/guardar',$rules)?>
 <?=$script;?>
 <script>
+$("#aceptar").button({icons: {primary: "ui-icon-disk"},  text: true	});
+$("#cancelar").button({icons: {primary: "ui-icon-cancel"},text: true	});
 function restablecer () {
 	fecha_ingreso = $('#fecha_ingreso').val();
 	$('#form1').each (function(){

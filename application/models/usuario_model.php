@@ -43,7 +43,7 @@ class Usuario_model extends Model {
 	}
 	
 	function get_usuario($usuario) {
-		$this->db->select("usuarios.id, usuarios.id_acceso, usuarios.usuario, nombres, apellidos, 
+		$this->db->select("usuarios.id, usuarios.id_acceso, usuarios.usuario,  
 							accesos.nombre as 'nombre_acceso', accesos.acceso");
 		$this->db->join('accesos', 'accesos.id = usuarios.id_acceso', 'left');
 		$usuario = $this->db->get_where('usuarios', array('usuario' => $usuario, 'id_estatus' => 1), 1);
@@ -177,8 +177,7 @@ class Usuario_model extends Model {
 	}
 	
 	function get_personal($cedula) {
-		$this->sigefirrhh = $this->load->database('sigefirrhh',TRUE);					
-		
+		$this->sigefirrhh = $this->load->database('sigefirrhh',TRUE); 		
 		$this->sigefirrhh->select("*");  	
 		$this->sigefirrhh->from('personal');	
 		$this->sigefirrhh->where('cedula = ',$cedula ) ;		

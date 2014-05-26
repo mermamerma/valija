@@ -126,7 +126,7 @@ class Usuario extends Controller {
 		}
 		elseif (($id == '') AND ($duplicado)) {	# Error al agregar un usuario ya existente
 			register_log('Error',"Se intentó agregar el usaurio \"$usuario\" que ya estaba registrado",1);    	 	
-			$str  	= dialog('Error',"¡Usuario \"$usuario\" ya esta registrado en el sistema!",1);	  		
+			$str  	= dialog('Error',"¡Usuario <b><ul>$usuario</ul></b> ya esta registrado en el sistema!",1);	  		
 		}	
 		elseif (($id == '') AND (!$duplicado)) {	# Agregó el usuario ya que no existe		
 			$id = $this->usuario_model->agregar() ;
@@ -146,15 +146,23 @@ class Usuario extends Controller {
 		$personal	= $this->usuario_model->get_personal($cedula) ;		
 		register_log('Consulta',"Se busco la C.I. $cedula en el SIGEFIRRHH",1);
 		if ($personal !== FALSE) {
-				$usuario = $personal->primer_nombre.'.'.$personal->primer_apellido.substr($cedula,-3,3);
-				$usuario = to_minuscula($usuario);
-				$response  = '<script>';										
-				$response .= "\n$('#id_personal').val('{$personal->id_personal}');\n";
-				$response .= "$('#nombres').val('{$personal->primer_nombre} {$personal->segundo_nombre}');\n";
-				$response .= "$('#apellidos').val('{$personal->primer_apellido} {$personal->segundo_apellido}');\n";
-				$response .= "$('#usuario').val('{$usuario}');\n";
-				$response .= '</script>';
-		}
+			$correo = to_minuscula($personal->email) ;
+			$dominio = strpos($correo, '@mppre.gov.ve') ;
+			if ($correo == '') 
+				$usuario = $personal->primer_nombre.'.'.$personal->primer_apellido.substr($cedula,-3,3) ;
+			elseif ($dominio)
+				$usuario = get_usuario($correo) ;
+			else
+				$usuario = $personal->primer_nombre.'.'.$personal->primer_apellido.substr($cedula,-3,3) ;
+			$usuario = to_minuscula($usuario) ;
+			$response  = '<script>';										
+			$response .= "\n$('#id_personal').val('{$personal->id_personal}');\n";
+			$response .= "$('#nombres').val('{$personal->primer_nombre} {$personal->segundo_nombre}');\n";
+			$response .= "$('#apellidos').val('{$personal->primer_apellido} {$personal->segundo_apellido}');\n";
+			$response .= "$('#usuario').val('{$usuario}');\n";
+			$response .= "$('#usuario_sugerido').show('pulsate',500);\n";
+			$response .= '</script>';
+	}
 		else {			
 			$response  	= dialog('Información',"¡Cédula $cedula no existe en SIGEFIRRHH!",1) ;
 		}

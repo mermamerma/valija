@@ -52,7 +52,7 @@ $(function(){
 				<li><a href="<?=base_url()."maestro/estructuras"?>">Estructuras</a></li>
 			</ul>
 		</li>
-		<li><a href="<?=base_url()."log/listar"?>">Bitacorara</a></li>
+		<li><a href="<?=base_url()."log/listar"?>">Bitácora</a></li>
 	</ul>
 </div>
  <?php endif; ?>

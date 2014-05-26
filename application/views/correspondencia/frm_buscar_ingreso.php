@@ -84,6 +84,11 @@
 <?=ajaxifica('form1','correspondencia/do_buscar_ingreso', $rules, 'activityanimation.gif')?>
 <?=$script;?>
 <script type="text/javascript">
+$("#aceptar").button({icons: {primary: "ui-icon-search"},  text: true	});
+$("#cancelar").button({icons: {primary: "ui-icon-arrowreturnthick-1-w"},text: true	});
+$("#imprimir_up").button({icons: {primary: "ui-icon-print"},  text: true	});
+$("#imprimir_down").button({icons: {primary: "ui-icon-print"},  text: true	});	
+
 function imprimir(){
 	var titulo = prompt("Si desea algún título en el reporte, Coloquelo Por favor",'');
 	if(titulo == '') 

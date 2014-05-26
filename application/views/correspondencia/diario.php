@@ -3,7 +3,7 @@
 <div id="form_container">
 <form id="form1" class="appnitro" method="post" action="" target="_blank">
 	<div class="form_description">
- 		<h2>Correspondencias por <u><?= $modo ?></u> <img src="<?= base_url() ?>/public/images/icons/page_white_vector.png" class="icon_accion" id="img_accion"></h2> 
+ 		<h2>Correspondencias por <u><?= $modo ?></u> <img src="<?= base_url() ?>/public/images/icons/<?= $icon ?>.png" class="icon_accion" id="img_accion"></h2> 
       <p><?= $leyenda ?></p>	  
 	</div>
 		<fieldset>

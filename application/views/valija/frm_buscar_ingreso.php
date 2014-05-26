@@ -89,6 +89,7 @@
 	</form>
 </div>
 <script type="text/javascript">
+
 function cambio_criterio () {
 	criterio = $('#criterio').val();	
 	$('#tr_mision').hide();

@@ -46,10 +46,8 @@ class Search extends Controller {
 				WHERE ciudades.nombre_ciudad like '%$term%' OR paises.nombre_pais like '%$term%' order by nombre_pais";
     			break; 
 			case 'usuarios':				
-    			$sql = "SELECT usuarios.id as id, CONCAT(usuarios.nombres, ' ', usuarios.apellidos, ' -> ',usuarios.usuario) as label
-				FROM usuarios WHERE 
-				usuarios.nombres like '%$term%' OR
-				usuarios.apellidos like '%$term%' OR
+    			$sql = "SELECT usuarios.id as id, usuarios.usuario as label
+				FROM usuarios WHERE 				
 				usuarios.usuario LIKE '%$term%' order by usuarios.usuario ASC";
     			break;   			
 		}  

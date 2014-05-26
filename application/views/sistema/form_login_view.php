@@ -20,7 +20,7 @@
 		  <input type="reset" id="cancelForm" class="boton" name="Cancelar" value="Cancelar" style="margin-left:25px;"/>
 	  </li><br /><br /><li class="buttons" style="margin-left: 150px; text-align: center;">
 	  <?=img($help_png = array('src' => 'public/images/help.png','alt'=>'Ayuda','longdesc'=>'Ayuda', 'width'=>'16', 'height'=>'16'));?>
-		Si deseas obtener ayuda o presentas problemas para acceder al sistema contactenos por el correo: <a href="mailto:jesus.rodriguez937abiertos@mppre.gob.ve">jesus.rodriguez937@mppre.gob.ve</a> <br />
+		Si desean obtener ayuda o presentan problemas para acceder al sistema contactenos por el correo: <a href="mailto:jesus.rodriguez937@mppre.gob.ve">jesus.rodriguez937@mppre.gob.ve</a> <br />
 	  	</li><br />
 		<li class="buttons" style="margin-left: 250px;">
 		</li>

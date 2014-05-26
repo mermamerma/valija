@@ -71,7 +71,7 @@ class Log extends Controller {
 		$this->table->set_template($tmpl); 	
 
 		
-		$data ['main_content'] 		= 'sistema/view_log_user';  
+		$data ['main_content'] 		= 'usuario/view_log_user';  
 		$this->load->view('sistema/template',$data);  	
     }
 } ### FIN DE CLASE

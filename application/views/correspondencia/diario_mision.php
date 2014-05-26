@@ -16,8 +16,12 @@
 	</tbody>
 </table>
 	<br />
-	<span id="aceptar" class="boton" onclick="javacript:pdf_diario_mision();">Generar PDF</span>
+	<span id="imprimir" class="boton" onclick="javacript:pdf_diario_mision();">Generar PDF</span>
 <script>
+
+$("#aceptar").button({icons: {primary: "ui-icon-search"},  text: true	});
+$("#imprimir").button({icons: {primary: "ui-icon-print"},  text: true	});
+
 $(function() {	
 	$('#form1').validate({
 		rules:{				

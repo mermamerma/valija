@@ -12,10 +12,11 @@
 		<?= $tabla?>
 		</div>
 	<br />
-	<div id="boton_agregar" class="boton" onclick="javacript:window.location.href = '<?=base_url()?>usuario/formulario/' ">Agregar (+)</div>	
+	<div id="boton_agregar" class="boton" onclick="javacript:window.location.href = '<?=base_url()?>usuario/formulario/' ">Agregar</div>	
 	</form>
 </div>
 <script>
+$("#boton_agregar").button({icons: {primary: "ui-icon-circle-plus"},  text: true	});
 
 $(function() {
 	var oTable = $('#datatable').dataTable({

@@ -22,11 +22,12 @@
 				  	<li>
                     <label class="description" for="element_2">Cédula <span class="required">(*)</span></label>
                     <?= form_input('cedula','','class="element text medium-form"')?>
-					<img id="img_buscar" src="<?=base_url().'public/images/lupa.png'?>" / onclick="javascript:consultar()" style="cursor:pointer;">
+					<img id="img_buscar" src="<?=base_url().'public/images/lupa.png'?>"  onclick="javascript:consultar()" style="cursor:pointer;">
 					</li>
 				  </td>
                   <td>
 				  	 	<label class="description" for="element_2">Nombre de Usuario <span class="required">(*)</span></label>
+						<p id="usuario_sugerido" style="display: none" class="sugerido">Este Usuario es Sugerido...</p>
                     	<?= form_input('usuario','','class="element text medium-form"')?>
 				  </td>
                 </tr>
@@ -70,7 +71,9 @@
   </form>
 </div>
 <script>
-
+$("#aceptar").button({icons: {primary: "ui-icon-disk"},  text: true	});
+$("#cancelar").button({icons: {primary: "ui-icon-cancel"},text: true	});
+$("#cedula").focus();
 function consultar() {	
 	$('#resultado-ajax').hide();
 	$('#cargando').show();

@@ -375,6 +375,7 @@ class Correspondencia extends Controller {
 		$this->load->library('parser');
 		register_log('Consulta',"Acceso a Diario por Destinatario");  		
 		$data ['main_content'] 		= 'correspondencia/diario'; 
+		$data['icon'] 		= 'email_go'; 
 		$data ['diario']	= $this->correspondencia_model->get_diario_destinatario();
 		$data['tabla']		= $this->parser->parse('correspondencia/diario_destinatario', $data, TRUE);
 		$data['modo']		= 'Destinatario' ;
@@ -422,8 +423,9 @@ class Correspondencia extends Controller {
 	function diario_mision() {
 		$this->load->library('parser');
 		register_log('Consulta',"Acceso a Diario por Misión");  		
-		$data ['main_content'] 		= 'correspondencia/diario'; 
-		$data ['diario']	= $this->correspondencia_model->get_diario_mision();
+		$data['main_content'] 		= 'correspondencia/diario'; 
+		$data['icon'] 		= 'email_web'; 
+		$data['diario']	= $this->correspondencia_model->get_diario_mision();
 		$data['leyenda']		= 'Lista del total correspondencias enviadas por cada Misión ';
 		$data['tabla']		= $this->parser->parse('correspondencia/diario_mision', $data, TRUE); 
 		$data['modo']		= 'Misión' ;				

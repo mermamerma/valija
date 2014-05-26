@@ -1,5 +1,16 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+function get_usuario($input) {
+	$flag = strpos($input,'@');		
+	if ($flag){
+		$pos = strpos($input,'@');
+		$input = substr($input,0,$pos);
+		return $input;
+	}
+	else
+		return $input;
+}
+
 function to_titulo($input) {
 	$input = to_minuscula($input);
 	return ucfirst($input,'UTF-8') ;

@@ -717,6 +717,15 @@ form li.error label
 	color:#DF0000 !important;
 }
 
+.sugerido
+{
+	clear:both;
+	color:blueviolet;
+	font-size:10px;
+	font-weight:700;
+	margin:0 0 5px;
+}
+
 form p.error
 {
 	clear:both;
