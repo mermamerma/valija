@@ -3,7 +3,7 @@
 <div id="form_container">
 	<form id="form1" class="appnitro" method="post" action="">
 		<div class="form_description">
-			<h2>Detalle Maestro - <?=$desc?> <img src="<?= base_url() ?>/public/images/icons/table_relationship.png" class="icon_accion" id="img_accion"></h2> 
+			<h2>Maestro - <?=$desc?> <img src="<?= base_url() ?>/public/images/icons/table_relationship.png" class="icon_accion" id="img_accion"></h2> 
 			<p>Lista de Registro</p>
 		</div>	
 		<div id="tabla_pintada">
