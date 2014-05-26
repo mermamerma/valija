@@ -17,84 +17,12 @@ class Correspondencia extends Controller {
     
     public function index() {
 
-    }
-    
-    function formulario2() {
-        #$this->firephp->setEnabled(FALSE);
-        $myvariable = 'Hola Mundo';
-        $miArray = array("indice" => "valor", "otra cosa" => "otro valor");
-    	$id = (int) $this->uri->segment(3);
-        #$id = 20;
-        $this->firephp->log($id, '$id');
-        $script = '';    	
-    	$data ['main_content'] = 'correspondencia/frm_correspondencia';    
-    	
-    	# Agrego las reglas para validar el formulario para un nuevo ingreso
-    	$rules[] = ('indice_interno : { required:true, digits:true }');
-        $rules[] = ('fecha_ingreso : { required:true, dateDE: true  }');				
-        $rules[] = ('id_mision : { required:true }'); 
-        $rules[] = ('asunto : { required:true }');    	
-        $rules[] = ('numero_ingreso : { required:true, digits:true }');							    	
-        $rules[] = ('id_destinatario : { required:true }');
-        $rules[] = ('indice_remitente : { required:true, digits:true }');
-        $rules[] = ('fecha_correspondencia : { dateDE: true  }');  
-        $rules[] = ('id_tipo_documento : { required:true }');
-        $rules[] = ('numero_docuemento : { digits:true }');	    	
-        $data['rules'] = $rules;    	
-    	// Para cargar el registro por el ID pasado en el GET y mostrar el formulario con sus valores para editarlo 
-    	if ($id > 0) { 
-			$row = $this->correspondencia_model->get_correspondencia($id) ;	
-	    	$data['momento'] = 'Editar Correspondencia';	    	    		
-			$script = "
-			<script>						
-			$('#id').val('{$row->id}');
-			$('#indice_interno').val('{$row->indice_interno}');
-			$('#fecha_ingreso').val('{$row->fecha_ingreso}');
-			$('#id_mision').val('{$row->id_mision}');
-			$('#mision').val('{$row->mision}');
-			$('#asunto').val('{$row->asunto}');
-			$('#numero_ingreso').val('{$row->numero_ingreso}');
-			$('#id_destinatario').val('{$row->id_destinatario}');
-			$('#destinatario').val('{$row->destinatario}');
-			$('#indice_remitente').val('{$row->indice_remitente}');
-			$('#fecha_correspondencia').val('{$row->fecha_correspondencia}');
-			$('#id_tipo_documento').val('{$row->id_tipo_documento}');
-			$('#numero_documento').val('{$row->numero_documento}');
-			$('input:radio[name=entrada]').filter('[value={$row->entrada}]').attr('checked', true); 
-			$('input:radio[name=anexo]').filter('[value={$row->anexo}]').attr('checked', true);
-			$('#observaciones').val('{$row->observaciones}');
-			$('#meta_data').show();
-			$('#usuario').html('{$row->usuario}');
-			$('#fecha_c').html('{$row->easydate_c}');
-			$('#fecha_a').html('{$row->easydate_a}');
-			$('#fecha_c').attr('title', '".fecha_legible($row->creacion)."');	
-			$('#fecha_a').attr('title', '".fecha_legible($row->actualizacion)."');			
-			</script>";	
-			register_log('Acceso',"Acceso al formulario para editar la correspondencia con ID => $id");	    	
-    	}
-    	// Cargar el formulario para agregar
-    	else {
-    		$data['momento'] = 'Registrar Correspondencia';
-    		$script = "<script>";
-    		### Seteo el campo fecha de ingreso a la de hoy, y selecciono tipo de entrada y anexo
-    		$script .= "$(document).ready(function (){ ";
-    		$script .= "$('#fecha_ingreso').datepicker('setDate', 'today'); ";
-    		$script .= "$('input:radio[name=anexo]').filter('[value=S]').attr('checked', true); ";
-    		$script .= "$('input:radio[name=entrada]').filter('[value=V]').attr('checked', true); ";    		
-    		$script .= '});';
-    		$script .= "</script>";	    	
-	    	register_log('Acceso',"Acceso al formulario para registrar nueva correspondencia");			
-		}
-		$data['script'] = $script;
-		$this->load->view('sistema/template',$data);
-    }
+    }    
     
 	function formulario() {
         #$this->firephp->setEnabled(FALSE);
-        $myvariable = 'Hola Mundo';
-        $miArray = array("indice" => "valor", "otra cosa" => "otro valor");
-    	$id = (int) $this->uri->segment(3);
-        #$id = 20;
+       
+    	$id = (int) $this->uri->segment(3);       
         $this->firephp->log($id, '$id');
         $script = '';    	
     	$data ['main_content'] = 'correspondencia/frm_correspondencia';    
@@ -117,10 +45,7 @@ class Correspondencia extends Controller {
 			$data['row'] = $row ;
 			$data['script'] = $this->load->view('correspondencia/set_editar', $data, TRUE);
 			$algo = $this->load->view('correspondencia/set_editar', $data, TRUE);
-	    	$data['momento'] = 'Editar Correspondencia';
-			#die('Valor: '.$data['script']);
-			#die('Algo: '.$algo);
-			#var_dump($data); exit;
+	    	$data['momento'] = 'Editar Correspondencia';			
 			register_log('Acceso',"Acceso al formulario para editar la correspondencia con ID => $id");	    	
     	}
     	// Cargar el formulario para agregar
@@ -199,28 +124,28 @@ class Correspondencia extends Controller {
     }
 	
     function frm_editar () {    	    	        
-	if ($data['correspondencia'] = $this->correspondencia_model->get_registro()) {    			 
-        $id = $this->uri->segment(3);
+		if ($data['correspondencia'] = $this->correspondencia_model->get_registro()) {    			 
+			$id = $this->uri->segment(3);
 
-        #$data ['main_content'] 		= 'correspondencia/frm_editar';
+			#$data ['main_content'] 		= 'correspondencia/frm_editar';
 
-        $rules[] = ('remitente : { required:true }');
-        $rules[] = ('numero : { required:true }');
-        $rules[] = ('fecha_correspondencia : { required:true, dateDE: true}');		
-        $rules[] = ('fecha_ingreso : { required:true, dateDE: true}');
-        $rules[] = ('asunto : { required:true }');    	
-        $rules[] = ('asignacion : { required:true }');
-        $rules[] = ('fecha_ingreso : { required:true }');
+			$rules[] = ('remitente : { required:true }');
+			$rules[] = ('numero : { required:true }');
+			$rules[] = ('fecha_correspondencia : { required:true, dateDE: true}');		
+			$rules[] = ('fecha_ingreso : { required:true, dateDE: true}');
+			$rules[] = ('asunto : { required:true }');    	
+			$rules[] = ('asignacion : { required:true }');
+			$rules[] = ('fecha_ingreso : { required:true }');
 
-        $data['rules'] = $rules;    	 
-        $data ['main_content'] 		= 'correspondencia/frm_editar';
+			$data['rules'] = $rules;    	 
+			$data ['main_content'] 		= 'correspondencia/frm_editar';
 
-        $this->load->view('sistema/template',$data); 
-        register_log('Correspondencia',"Acceso al formulario para editar la correspondencia con el ID => $id");
+			$this->load->view('sistema/template',$data); 
+			register_log('Correspondencia',"Acceso al formulario para editar la correspondencia con el ID => $id");
         }
         else 
-        show_404();
-}
+			show_404();
+	}
 	
     function eliminar() {
     	$id = $this->uri->segment(3);
@@ -291,7 +216,8 @@ class Correspondencia extends Controller {
     }
 
     function pdf_ingreso () {
-    	$this->load->library('pdf');    	
+    	$this->load->library('pdf');
+		$this->pdf->SetKeywords('');
     	$this->pdf->SetFontSize(7);
         $this->pdf->AddPage('L','LEGAL');              
         $html  = "" ;
